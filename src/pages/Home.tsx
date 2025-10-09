@@ -68,8 +68,8 @@ export default function Home() {
       >
         {[
           { icon: <Github size={24} />, href: "https://github.com/veha2309" },
-          { icon: <Linkedin size={24} />, href: "#" },
-          { icon: <Mail size={24} />, href: "#" },
+          { icon: <Linkedin size={24} />, href: "https://www.linkedin.com/in/vedant-shukla-79a6342b1/" },
+          { icon: <Mail size={24} />, href: "mailto:engineerhai99@gmail.com" },
         ].map((item, i) => (
           <motion.a
             key={i}
