@@ -18,12 +18,12 @@ export default function Projects() {
 
   const headingVariants = {
     hidden: { opacity: 0, y: -30 },
-    show: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 60 } },
+    show: { opacity: 1, y: 0, transition: { type: "spring" as const, stiffness: 60 } },
   };
 
   const cardVariants = {
     hidden: { opacity: 0, y: 40 },
-    show: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 60 } },
+    show: { opacity: 1, y: 0, transition: { type: "spring" as const, stiffness: 60 } },
   };
 
   return (
