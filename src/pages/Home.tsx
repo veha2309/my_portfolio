@@ -12,7 +12,7 @@ export default function Home() {
         initial={{ x: -200, opacity: 0 }}
         animate={{ x: -140, opacity: 0.25 }}
         transition={{ duration: 1, ease: "easeOut" }}
-        className="absolute left-0 bottom-0 md:bottom-auto md:top-1/2 transform md:-translate-y-1/2 w-[300px] md:w-[500px] lg:w-[600px] object-contain pointer-events-none select-none"
+        className="absolute max-md:hidden min-md:block left-0 bottom-0 md:bottom-auto md:top-1/2 transform md:-translate-y-1/2 w-[300px] md:w-[500px] lg:w-[500px] object-contain pointer-events-none select-none"
       />
 
       {/* Avatar */}
