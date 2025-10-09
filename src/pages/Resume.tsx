@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import  { useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { experience as experienceData } from '../data/experience';
 import { skills as skillsData } from '../data/skills';
