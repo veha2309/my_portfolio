@@ -3,8 +3,8 @@ export interface Skills {
 }
 
 export const skills: Skills = {
-  Frontend: ['React', 'JavaScript', 'TypeScript', 'HTML/CSS', 'Tailwind CSS' , 'Flutter' , 'Dart'],
-  Backend: ['Node.js', 'Express', 'Python', 'REST APIs' , 'NextJS'],
-  Database: ['MongoDB', 'PostgreSQL', 'Firebase' , 'MySQL' , 'SQLite' , 'Hive'],
-  Tools: ['Git', 'Docker', 'Figma' , 'VS Code', 'Postman' , 'Android Studio'],
+  Languages: ['JavaScript', 'TypeScript', 'Dart', 'Python', 'C++', 'Java', 'HTML/CSS', 'SQL'],
+  'Frameworks & Libraries': ['React.js', 'Next.js', 'Flutter', 'Redux', 'Tailwind CSS'],
+  'Backend & Databases': ['Node.js', 'Express.js', 'REST APIs', 'MongoDB', 'PostgreSQL', 'Firebase', 'Hive'],
+  Tools: ['Git', 'GitHub', 'Docker', 'AWS', 'Vercel', 'Postman'],
 };

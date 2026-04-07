@@ -6,24 +6,22 @@ export interface Experience {
 }
 
 export const experience: Experience[] = [
-  // {
-  //   role: 'Senior Frontend Developer',
-  //   company: 'Tech Solutions Inc.',
-  //   period: '2022 - Present',
-  //   responsibilities: [
-  //     'Led development of responsive web applications using React and TypeScript',
-  //     'Mentored junior developers and conducted code reviews',
-  //     'Improved application performance by 40% through optimization',
-  //   ],
-  // },
-  // {
-  //   role: 'Full Stack Developer',
-  //   company: 'Digital Innovations',
-  //   period: '2020 - 2022',
-  //   responsibilities: [
-  //     'Developed and maintained multiple client projects',
-  //     'Implemented RESTful APIs and database architecture',
-  //     'Collaborated with design team to create user-friendly interfaces',
-  //   ],
-  // },
+  {
+    role: 'Flutter Developer Intern',
+    company: 'AVS Seva Technologies',
+    period: 'Remote',
+    responsibilities: [
+      'Developed cross-platform mobile applications using Flutter and Dart',
+      'Collaborated with the design team to implement responsive UI components',
+    ],
+  },
+  {
+    role: 'Mobile & Web Developer',
+    company: 'Freelance',
+    period: 'Delhi, India',
+    responsibilities: [
+      'Delivered custom mobile applications for freelance clients utilizing Flutter',
+      'Optimized application performance and managed end-to-end deployment',
+    ],
+  },
 ];

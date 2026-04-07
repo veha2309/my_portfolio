@@ -1,48 +1,111 @@
-import { useState } from 'react';
-import { Menu, X } from 'lucide-react';
-import { Link, useLocation } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Menu, X, Orbit } from 'lucide-react';
 import { navigation } from '../data/navigation';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
-  const { pathname } = useLocation();
+  const [activeTab, setActiveTab] = useState('home');
 
-  const linkClass = (path: string) =>
-    `px-3 py-2 rounded-lg transition-all ${
-      pathname === path ? 'text-blue-400 bg-slate-800' : 'text-slate-300 hover:text-white hover:bg-slate-800/50'
+  useEffect(() => {
+     const observer = new IntersectionObserver((entries) => {
+       entries.forEach((entry) => {
+         if (entry.isIntersecting) {
+           setActiveTab(entry.target.id);
+         }
+       });
+     }, { threshold: 0.5 });
+
+     const sections = document.querySelectorAll('section[id]');
+     sections.forEach((section) => observer.observe(section));
+     return () => observer.disconnect();
+  }, []);
+
+  const linkClass = (path: string) => {
+    const id = path === '/' ? 'home' : path.replace('/', '');
+    return `relative px-4 py-2 rounded-full transition-all duration-300 text-sm font-medium tracking-widest uppercase ${
+      activeTab === id 
+        ? 'text-celestial-primary bg-celestial-primary/10 glow-primary' 
+        : 'text-celestial-text/40 hover:text-celestial-text hover:bg-celestial-primary/5'
     }`;
+  };
+
+  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, path: string) => {
+    e.preventDefault();
+    const id = path === '/' ? 'home' : path.replace('/', '');
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+    setOpen(false);
+  };
 
   return (
-    <nav className="bg-slate-900/80 backdrop-blur-sm border-b border-slate-700 sticky top-0 z-50">
-      <div className="max-w-6xl mx-auto px-4">
-        <div className="flex justify-between items-center h-16">
-          <div className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
-            Portfolio
+    <nav className="fixed top-8 left-1/2 -translate-x-1/2 z-[100] w-[calc(100%-2rem)] max-w-4xl transition-all duration-500">
+      <div className="glass rounded-full px-6 py-3 border border-celestial-outline flex justify-between items-center bg-[var(--surface)]/40 shadow-2xl">
+        <a href="#home" onClick={(e) => handleLinkClick(e, '/')} className="flex items-center space-x-2 group">
+          <div className="p-2 bg-celestial-primary/20 rounded-lg group-hover:bg-celestial-primary/30 transition-colors">
+             <Orbit size={20} className="text-celestial-primary animate-pulse" />
           </div>
+          <span className="text-xl font-bold tracking-tighter text-celestial-text group-hover:text-celestial-primary transition-colors">
+            PORTFOLIO<span className="text-celestial-primary">.</span>
+          </span>
+        </a>
 
-          <div className="hidden md:flex space-x-8">
-            {navigation.map((item) => (
-              <Link key={item.path} to={item.path} className={linkClass(item.path)}>
-                {item.name}
-              </Link>
-            ))}
-          </div>
-
-          <button onClick={() => setOpen((p) => !p)} className="md:hidden text-slate-300 hover:text-white">
-            {open ? <X size={24} /> : <Menu size={24} />}
-          </button>
+        {/* Desktop Nav */}
+        <div className="hidden md:flex items-center space-x-2 bg-white/5 p-1 rounded-full border border-white/5">
+          {navigation.map((item) => (
+            <a 
+              key={item.path} 
+              href={`#${item.path === '/' ? 'home' : item.path.replace('/', '')}`} 
+              onClick={(e) => handleLinkClick(e, item.path)}
+              className={linkClass(item.path)}
+            >
+              {activeTab === (item.path === '/' ? 'home' : item.path.replace('/', '')) && (
+                <motion.div 
+                  layoutId="nav-bg"
+                  className="absolute inset-0 bg-celestial-primary/5 rounded-full border border-celestial-primary/20"
+                  transition={{ type: "spring", bounce: 0.25, duration: 0.5 }}
+                />
+              )}
+              <span className="relative z-10">{item.name}</span>
+            </a>
+          ))}
         </div>
 
-        {open && (
-          <div className="md:hidden pb-4 px-4 space-y-2">
-            {navigation.map((item) => (
-              <Link key={item.path} to={item.path} onClick={() => setOpen(false)} className={linkClass(item.path)}>
-                {item.name}
-              </Link>
-            ))}
-          </div>
-        )}
+        {/* Mobile Button */}
+        <button 
+          onClick={() => setOpen((p) => !p)} 
+          className="md:hidden p-2 text-celestial-text/60 hover:text-celestial-primary transition-colors"
+        >
+          {open ? <X size={24} /> : <Menu size={24} />}
+        </button>
       </div>
+
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {open && (
+          <motion.div 
+            initial={{ opacity: 0, y: -20, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -20, scale: 0.95 }}
+            className="md:hidden absolute top-full left-0 right-0 mt-4 mx-2 glass rounded-2xl p-4 border border-celestial-outline shadow-2xl overflow-hidden bg-[var(--surface)]/90"
+          >
+            <div className="flex flex-col space-y-2">
+              {navigation.map((item) => (
+                <a 
+                  key={item.path} 
+                  href={`#${item.path === '/' ? 'home' : item.path.replace('/', '')}`}
+                  onClick={(e) => handleLinkClick(e, item.path)}
+                  className={`${linkClass(item.path)} block w-full text-center py-4`}
+                >
+                  {item.name}
+                </a>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   );
 }

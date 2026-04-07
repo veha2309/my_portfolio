@@ -1,1 +1,138 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
 @import "tailwindcss";
+
+@theme {
+  --font-space: "Space Grotesk", sans-serif;
+  
+  --color-celestial-bg: var(--bg);
+  --color-celestial-primary: var(--primary);
+  --color-celestial-secondary: var(--surface);
+  --color-celestial-text: var(--text);
+  --color-celestial-outline: var(--outline);
+}
+
+:root {
+  --bg: #050608;
+  --text: #e1e2eb;
+  --primary: #00e5ff;
+  --surface: #0c0e12;
+  --outline: rgba(255, 255, 255, 0.1);
+  --glass: rgba(50, 53, 60, 0.4);
+  --card-bg: rgba(12, 14, 18, 0.9);
+  
+  --font-sans: var(--font-space);
+  color: var(--text);
+}
+
+[data-theme='light'] {
+  --bg: #f7f3e9; /* Premium Beige/Parchment */
+  --text: #2c1810; /* Deep Espresso for thermal contrast */
+  --primary: #8b5e3c; /* Solar Leather/Gold Teal for beige sync */
+  --surface: #fffdfa; /* Warm paper surface */
+  --outline: rgba(44, 24, 16, 0.15); /* Soft Espresso divider */
+  --glass: rgba(255, 253, 250, 0.85); /* Parchment glass */
+  --card-bg: rgba(255, 253, 250, 0.96);
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-space);
+  overflow-x: hidden;
+  background-color: transparent;
+  transition: color 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Glassmorphism Utility */
+.glass {
+  background: var(--glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--outline);
+  transition: background 1.5s ease, border 1.5s ease;
+}
+
+/* Bioluminescent Glow */
+.glow-primary {
+  transition: box-shadow 1.5s ease;
+  box-shadow: 0 0 20px var(--primary);
+}
+
+.text-glow {
+  transition: text-shadow 1.5s ease;
+  text-shadow: 0 0 10px var(--primary);
+}
+
+/* Tactical HUD Elements */
+.scanline {
+  background: linear-gradient(
+    to bottom,
+    transparent 50%,
+    rgba(0, 229, 255, 0.05) 50%
+  );
+  background-size: 100% 4px;
+  pointer-events: none;
+}
+
+[data-theme='light'] .scanline {
+  background: linear-gradient(
+    to bottom,
+    transparent 50%,
+    rgba(139, 94, 60, 0.03) 50%
+  );
+  background-size: 100% 4px;
+}
+
+.hud-text {
+  font-family: 'Space Grotesk', monospace;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+/* Chrome/Solid Effect Gradient */
+.chrome-gradient {
+  background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.02));
+  backdrop-filter: blur(10px);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--outline);
+  border-radius: 10px;
+}
+
+/* Hide default cursor globally */
+* {
+  cursor: none !important;
+}
+
+/* Custom HUD Cursor */
+.cursor-dot {
+  width: 8px;
+  height: 8px;
+  background-color: var(--primary);
+  box-shadow: 0 0 15px var(--primary);
+}
+
+.cursor-ring {
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--primary);
+  opacity: 0.3;
+  box-shadow: 0 0 10px var(--primary);
+}
+
+.cursor-text {
+  font-family: 'Space Grotesk', monospace;
+  font-size: 8px;
+  color: var(--primary);
+  opacity: 0.5;
+  letter-spacing: 2px;
+}
