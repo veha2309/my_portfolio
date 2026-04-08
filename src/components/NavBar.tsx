@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
-import { Menu, X, Orbit } from 'lucide-react';
+import { Menu, X, Orbit, Sun, Moon } from 'lucide-react';
 import { navigation } from '../data/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 
-export default function Navbar() {
+export default function Navbar({ isLightMode = false, toggleTheme = () => {} }: { isLightMode?: boolean, toggleTheme?: () => void }) {
   const [open, setOpen] = useState(false);
   const [activeTab, setActiveTab] = useState('home');
 
@@ -73,13 +73,22 @@ export default function Navbar() {
           ))}
         </div>
 
-        {/* Mobile Button */}
-        <button 
-          onClick={() => setOpen((p) => !p)} 
-          className="md:hidden p-2 text-celestial-text/60 hover:text-celestial-primary transition-colors"
-        >
-          {open ? <X size={24} /> : <Menu size={24} />}
-        </button>
+        {/* Mobile: theme toggle + hamburger */}
+        <div className="flex md:hidden items-center space-x-2">
+          <motion.button
+            onClick={toggleTheme}
+            whileTap={{ scale: 0.9 }}
+            className="p-2 text-celestial-primary"
+          >
+            {isLightMode ? <Sun size={20} /> : <Moon size={20} />}
+          </motion.button>
+          <button
+            onClick={() => setOpen((p) => !p)}
+            className="p-2 text-celestial-text/60 hover:text-celestial-primary transition-colors"
+          >
+            {open ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Menu */}
@@ -89,7 +98,8 @@ export default function Navbar() {
             initial={{ opacity: 0, y: -20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -20, scale: 0.95 }}
-            className="md:hidden absolute top-full left-0 right-0 mt-4 mx-2 glass rounded-2xl p-4 border border-celestial-outline shadow-2xl overflow-hidden bg-[var(--surface)]/90"
+            className="md:hidden absolute top-full left-0 right-0 mt-4 mx-2 rounded-2xl p-4 border border-celestial-primary/20 shadow-2xl"
+            style={{ backgroundColor: 'var(--surface)', backdropFilter: 'blur(20px)' }}
           >
             <div className="flex flex-col space-y-2">
               {navigation.map((item) => (

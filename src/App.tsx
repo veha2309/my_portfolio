@@ -39,7 +39,7 @@ export default function App() {
       {/* Tactical HUD Overlay - interactive level */}
       <HUD isLightMode={isLightMode} toggleTheme={toggleTheme} />
 
-      <Navbar />
+      <Navbar isLightMode={isLightMode} toggleTheme={toggleTheme} />
 
       {/* Standard Scrollable Content Layer - top level */}
       <main className="relative z-10 max-w-6xl mx-auto px-4">

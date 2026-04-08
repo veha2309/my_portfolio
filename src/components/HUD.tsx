@@ -18,8 +18,8 @@ export default function HUD({ isLightMode = false, toggleTheme = () => {} }: { i
       {/* Scanline Overlay */}
       <div className={`absolute inset-0 scanline transition-opacity duration-1000 ${isLightMode ? 'opacity-5' : 'opacity-20'}`} />
 
-      {/* Top Right: Theme Toggle (Phase Switcher) */}
-      <div className="absolute top-10 right-10 pointer-events-auto">
+      {/* Top Right: Theme Toggle — hidden on mobile, shown md+ */}
+      <div className="absolute top-10 right-10 pointer-events-auto hidden md:block">
         <motion.button
           onClick={toggleTheme}
           whileHover={{ scale: 1.1 }}

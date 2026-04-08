@@ -1,6 +1,6 @@
-const { connectDB, Rating } = require('./_db');
+import { connectDB, Rating } from './_db.js';
 
-module.exports = async (req, res) => {
+export default async function handler(req, res) {
   try {
     await connectDB();
     const dummy = await Rating.create({ storageKey: '__keepalive__', name: 'ping', rating: 5 });
@@ -9,4 +9,4 @@ module.exports = async (req, res) => {
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
-};
+}

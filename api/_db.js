@@ -1,9 +1,9 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 let cached = global._mongoConn;
 if (!cached) cached = global._mongoConn = { conn: null, promise: null };
 
-async function connectDB() {
+export async function connectDB() {
   if (cached.conn) return cached.conn;
   if (!cached.promise) {
     cached.promise = mongoose.connect(process.env.MONGO_URI).then(m => m);
@@ -19,6 +19,4 @@ const RatingSchema = new mongoose.Schema({
   createdAt:  { type: Date, default: Date.now },
 });
 
-const Rating = mongoose.models.Rating || mongoose.model('Rating', RatingSchema);
-
-module.exports = { connectDB, Rating };
+export const Rating = mongoose.models.Rating || mongoose.model('Rating', RatingSchema);
