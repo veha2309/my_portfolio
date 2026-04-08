@@ -1,9 +1,12 @@
-import React from 'react';
-import { ExternalLink, Github, ChevronRight } from 'lucide-react';
+import React, { useState } from 'react';
+import { ExternalLink, Github, ChevronRight, Star } from 'lucide-react';
 import type { Project } from '../data/project';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import RatingModal, { RatingDisplay } from './RatingModal';
 
 const ProjectCard: React.FC<Project> = ({ title, description, tech, github, live, points, accentColor, showDemo = false }) => {
+  const [ratingOpen, setRatingOpen] = useState(false);
+  const storageKey = `rating-project-${title.slice(0, 20).replace(/\s+/g, '-').toLowerCase()}`;
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
@@ -120,6 +123,10 @@ const ProjectCard: React.FC<Project> = ({ title, description, tech, github, live
           ))}
         </div>
 
+        <div className="pt-2">
+          <RatingDisplay storageKey={storageKey} />
+        </div>
+
         <footer className="pt-6 flex items-center space-x-6 border-t border-celestial-outline">
           {live && showDemo && (
             <a
@@ -141,7 +148,20 @@ const ProjectCard: React.FC<Project> = ({ title, description, tech, github, live
               Repository <Github size={14} className="ml-2" />
             </a>
           )}
+          <button
+            onClick={() => setRatingOpen(true)}
+            className="ml-auto inline-flex items-center text-celestial-text/40 hover:text-celestial-primary transition-all font-bold tracking-widest uppercase text-[10px]"
+          >
+            Rate <Star size={12} className="ml-1" />
+          </button>
         </footer>
+
+        <RatingModal
+          isOpen={ratingOpen}
+          onClose={() => setRatingOpen(false)}
+          storageKey={storageKey}
+          title={title}
+        />
       </div>
     </motion.article>
   );
