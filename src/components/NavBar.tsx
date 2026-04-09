@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Menu, X, Orbit, Sun, Moon } from 'lucide-react';
 import { navigation } from '../data/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -6,11 +6,13 @@ import { motion, AnimatePresence } from 'framer-motion';
 export default function Navbar({ isLightMode = false, toggleTheme = () => {} }: { isLightMode?: boolean, toggleTheme?: () => void }) {
   const [open, setOpen] = useState(false);
   const [activeTab, setActiveTab] = useState('home');
+  const isScrolling = useRef(false);
+  const scrollTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
      const observer = new IntersectionObserver((entries) => {
        entries.forEach((entry) => {
-         if (entry.isIntersecting) {
+         if (entry.isIntersecting && !isScrolling.current) {
            setActiveTab(entry.target.id);
          }
        });
@@ -21,18 +23,28 @@ export default function Navbar({ isLightMode = false, toggleTheme = () => {} }: 
      return () => observer.disconnect();
   }, []);
 
-  const linkClass = (path: string) => {
+  const linkClass = (path: string, isMobile = false) => {
     const id = path === '/' ? 'home' : path.replace('/', '');
-    return `relative px-4 py-2 rounded-full transition-all duration-300 text-sm font-medium tracking-widest uppercase ${
-      activeTab === id 
-        ? 'text-celestial-primary bg-celestial-primary/10 glow-primary' 
-        : 'text-celestial-text/40 hover:text-celestial-text hover:bg-celestial-primary/5'
-    }`;
+    const isActive = activeTab === id;
+    const baseClasses = "relative px-4 py-2 rounded-full transition-all duration-300 text-sm font-medium tracking-widest uppercase";
+    
+    if (isActive) {
+      return `${baseClasses} text-celestial-primary text-glow ${isMobile ? 'bg-celestial-primary/10 glow-primary' : ''}`;
+    }
+    return `${baseClasses} text-celestial-text/40 hover:text-celestial-text hover:bg-celestial-primary/5`;
   };
 
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, path: string) => {
     e.preventDefault();
     const id = path === '/' ? 'home' : path.replace('/', '');
+    
+    setActiveTab(id);
+    isScrolling.current = true;
+    if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
+    scrollTimeout.current = setTimeout(() => {
+      isScrolling.current = false;
+    }, 1000); // Lock observer during smooth scroll
+
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
@@ -54,23 +66,27 @@ export default function Navbar({ isLightMode = false, toggleTheme = () => {} }: 
 
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center space-x-2 bg-white/5 p-1 rounded-full border border-white/5">
-          {navigation.map((item) => (
-            <a 
-              key={item.path} 
-              href={`#${item.path === '/' ? 'home' : item.path.replace('/', '')}`} 
-              onClick={(e) => handleLinkClick(e, item.path)}
-              className={linkClass(item.path)}
-            >
-              {activeTab === (item.path === '/' ? 'home' : item.path.replace('/', '')) && (
-                <motion.div 
-                  layoutId="nav-bg"
-                  className="absolute inset-0 bg-celestial-primary/5 rounded-full border border-celestial-primary/20"
-                  transition={{ type: "spring", bounce: 0.25, duration: 0.5 }}
-                />
-              )}
-              <span className="relative z-10">{item.name}</span>
-            </a>
-          ))}
+          {navigation.map((item) => {
+            const id = item.path === '/' ? 'home' : item.path.replace('/', '');
+            const isActive = activeTab === id;
+            return (
+              <a 
+                key={item.path} 
+                href={`#${id}`} 
+                onClick={(e) => handleLinkClick(e, item.path)}
+                className={linkClass(item.path, false)}
+              >
+                {isActive && (
+                  <motion.div 
+                    layoutId="nav-bg"
+                    className="absolute inset-0 bg-celestial-primary/10 glow-primary rounded-full border border-celestial-primary/20"
+                    transition={{ type: "spring", bounce: 0.25, duration: 0.5 }}
+                  />
+                )}
+                <span className="relative z-10">{item.name}</span>
+              </a>
+            );
+          })}
         </div>
 
         {/* Mobile: theme toggle + hamburger */}
@@ -102,16 +118,19 @@ export default function Navbar({ isLightMode = false, toggleTheme = () => {} }: 
             style={{ backgroundColor: 'var(--surface)', backdropFilter: 'blur(20px)' }}
           >
             <div className="flex flex-col space-y-2">
-              {navigation.map((item) => (
-                <a 
-                  key={item.path} 
-                  href={`#${item.path === '/' ? 'home' : item.path.replace('/', '')}`}
-                  onClick={(e) => handleLinkClick(e, item.path)}
-                  className={`${linkClass(item.path)} block w-full text-center py-4`}
-                >
-                  {item.name}
-                </a>
-              ))}
+              {navigation.map((item) => {
+                const id = item.path === '/' ? 'home' : item.path.replace('/', '');
+                return (
+                  <a 
+                    key={item.path} 
+                    href={`#${id}`}
+                    onClick={(e) => handleLinkClick(e, item.path)}
+                    className={`${linkClass(item.path, true)} block w-full text-center py-4`}
+                  >
+                    {item.name}
+                  </a>
+                );
+              })}
             </div>
           </motion.div>
         )}
