@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { experience as experienceData } from '../data/experience';
 import { skills as skillsData } from '../data/skills';
 import SkillBadge from '../components/SkillBadge';
-import { Briefcase, GraduationCap, Cpu } from 'lucide-react';
+import { Briefcase, GraduationCap, Cpu, Award } from 'lucide-react';
 
 export default function Resume() {
   const experience = useMemo(() => experienceData, []);
@@ -101,22 +101,40 @@ export default function Resume() {
               Bachelor of Technology in Computer Science Engineering
             </h3>
             <p className="text-celestial-primary font-medium mb-4">
-              Dr. Akhilesh Das Gupta Institute of Professional Studies <span className="mx-3 opacity-20">|</span> <span className="text-celestial-text/50 font-normal">2023 - 2027</span>
+              Dr. Akhilesh Das Gupta Institute of Technology & Management <span className="mx-3 opacity-20">|</span> <span className="text-celestial-text/50 font-normal">Aug 2023 – Jun 2027</span>
             </p>
-            <div className="inline-flex flex-col space-y-2 px-4 py-3 bg-celestial-primary/10 rounded-xl border border-celestial-primary/20">
-               <div className="flex items-center space-x-3">
-                 <span className="text-xs uppercase tracking-widest text-celestial-text/40">Status:</span>
-                 <span className="text-sm font-bold text-celestial-primary leading-none italic">Navigating Final Semester (3rd Year)</span>
-               </div>
-               <div className="flex items-center space-x-3">
+            <div className="space-y-4">
+              <div className="inline-flex flex-col space-y-2 px-4 py-3 bg-celestial-primary/10 rounded-xl border border-celestial-primary/20">
+                <div className="flex items-center space-x-3">
                   <span className="text-xs uppercase tracking-widest text-celestial-text/40">Current CGPA:</span>
-                  <span className="text-sm font-bold text-celestial-text leading-none">7.814</span>
-               </div>
+                  <span className="text-sm font-bold text-celestial-text leading-none">7.8 / 10.0 (up to 5th semester)</span>
+                </div>
+              </div>
+              <div className="text-sm text-celestial-text/70">
+                <span className="font-bold text-celestial-primary uppercase tracking-wider text-xs block mb-1">Relevant Coursework:</span>
+                Data Structures & Algorithms, DBMS, Operating Systems, Computer Networks, OOP
+              </div>
             </div>
+          </div>
+        </motion.div>
+
+        {/* Certifications Section */}
+        <motion.div variants={itemVariants} className="space-y-12">
+          <div className="flex items-center space-x-4 border-b border-celestial-outline pb-4">
+             <Award className="text-celestial-primary" size={28} />
+             <h2 className="text-3xl font-bold tracking-tight text-celestial-text">Certifications</h2>
+          </div>
+          
+          <div className="glass p-8 rounded-3xl border border-celestial-outline hover:border-celestial-primary/30 transition-all flex flex-wrap gap-4">
+            {['JavaScript Certification', 'Full Stack Web Development', 'React.js & Next.js Specialization'].map((cert) => (
+              <div key={cert} className="px-5 py-3 rounded-2xl bg-celestial-primary/5 border border-celestial-outline flex items-center space-x-3">
+                <div className="w-2 h-2 rounded-full bg-celestial-primary shadow-[0_0_8px_var(--primary)]" />
+                <span className="text-sm font-semibold text-celestial-text">{cert}</span>
+              </div>
+            ))}
           </div>
         </motion.div>
       </div>
     </motion.section>
-    
   );
 }

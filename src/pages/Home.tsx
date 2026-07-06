@@ -21,8 +21,8 @@ export default function Home() {
           transition={{ duration: 0.8, delay: 0.2 }}
             className="text-6xl md:text-8xl font-bold text-celestial-text tracking-tighter"
         >
-          Crafting <span className="text-celestial-primary text-glow">Spatial</span> <br />
-          Experiences.
+          Crafting <span className="text-celestial-primary text-glow">Technical</span> <br />
+          Solutions.
         </motion.h1>
 
         <motion.p 
@@ -48,7 +48,7 @@ export default function Home() {
         
         <h2 className="text-sm font-bold text-celestial-primary uppercase tracking-[0.3em] mb-6">Core Directive</h2>
         <p className="text-celestial-text text-lg md:text-xl leading-relaxed mb-6 font-medium">
-          I am a Computer Science Engineering student navigating the final semester of my third year. 
+          I am a Computer Science Engineering student navigating the final year of my BTech Programme. 
           I don't just study theory; I actively build architectures using the MERN stack, TypeScript, and Flutter. 
           I leverage AI-driven workflows to accelerate full-fledged software development with precision and speed.
         </p>

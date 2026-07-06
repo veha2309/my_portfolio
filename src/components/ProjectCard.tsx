@@ -4,6 +4,14 @@ import type { Project } from '../data/project';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import RatingModal, { RatingDisplay } from './RatingModal';
 
+const getDeterministicId = (str: string) => {
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    hash = str.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  return Math.abs(hash % 900) + 100;
+};
+
 const ProjectCard: React.FC<Project> = ({ title, description, tech, github, live, points, accentColor, showDemo = false }) => {
   const [ratingOpen, setRatingOpen] = useState(false);
   const storageKey = `rating-project-${title.slice(0, 20).replace(/\s+/g, '-').toLowerCase()}`;
@@ -41,7 +49,7 @@ const ProjectCard: React.FC<Project> = ({ title, description, tech, github, live
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      className="bg-[var(--card-bg)] rounded-3xl p-8 border border-celestial-outline hover:border-celestial-primary/40 transition-all group relative overflow-hidden will-change-transform shadow-2xl"
+      className="bg-[var(--card-bg)] rounded-3xl p-8 border border-celestial-outline hover:border-celestial-primary/40 transition-all group relative overflow-hidden will-change-transform shadow-2xl h-full flex flex-col justify-between"
     >
       {/* High-Performance 'Refraction Glow' Layer */}
       <motion.div 
@@ -73,58 +81,60 @@ const ProjectCard: React.FC<Project> = ({ title, description, tech, github, live
         style={{ backgroundColor: accentColor || 'var(--primary)' }}
       />
       
-      <div className="relative z-10 space-y-6">
-        <header className="flex justify-between items-start">
-          <div className="space-y-4">
-            <div className="flex items-center space-x-3">
-              <div 
-                className="w-1 h-6 rounded-full opacity-80"
-                style={{ backgroundColor: accentColor || 'var(--primary)' }}
-              />
-              <span className="hud-text text-[10px] text-celestial-text/40 tracking-[0.3em]">
-                MOD: {title.slice(0, 3).toUpperCase()}-{Math.floor(Math.random() * 900) + 100}
-              </span>
+      <div className="relative z-10 flex flex-col h-full justify-between flex-grow space-y-6">
+        <div className="space-y-6 flex-grow flex flex-col justify-start">
+          <header className="flex justify-between items-start">
+            <div className="space-y-4">
+              <div className="flex items-center space-x-3">
+                <div 
+                  className="w-1 h-6 rounded-full opacity-80"
+                  style={{ backgroundColor: accentColor || 'var(--primary)' }}
+                />
+                <span className="hud-text text-[10px] text-celestial-text/40 tracking-[0.3em]">
+                  MOD: {title.slice(0, 3).toUpperCase()}-{getDeterministicId(title)}
+                </span>
+              </div>
+              <h3 className="text-3xl font-bold text-celestial-text tracking-tight group-hover:text-celestial-primary transition-colors">
+                {title}
+              </h3>
             </div>
-            <h3 className="text-3xl font-bold text-celestial-text tracking-tight group-hover:text-celestial-primary transition-colors">
-              {title}
-            </h3>
-          </div>
-          
-          <div className="flex space-x-1">
-             <div className="w-1 h-1 bg-celestial-primary rounded-full animate-ping" />
-             <div className="w-1 h-1 bg-celestial-primary/20 rounded-full" />
-             <div className="w-1 h-1 bg-celestial-primary/20 rounded-full" />
-          </div>
-        </header>
+            
+            <div className="flex space-x-1">
+               <div className="w-1 h-1 bg-celestial-primary rounded-full animate-ping" />
+               <div className="w-1 h-1 bg-celestial-primary/20 rounded-full" />
+               <div className="w-1 h-1 bg-celestial-primary/20 rounded-full" />
+            </div>
+          </header>
 
-        <p className="text-celestial-text/70 text-lg leading-relaxed font-light">
-          {description}
-        </p>
+          <p className="text-celestial-text/70 text-lg leading-relaxed font-light">
+            {description}
+          </p>
 
-        {points && points.length > 0 && (
-          <ul className="space-y-3 bg-celestial-text/5 p-4 rounded-2xl border border-celestial-outline/20">
-            {points.map((p, i) => (
-              <li key={i} className="flex items-start text-xs text-celestial-text/80">
-                <ChevronRight size={14} className="text-celestial-primary mr-2 mt-0.5 shrink-0" />
-                <span className="leading-tight">{p}</span>
-              </li>
+          {points && points.length > 0 && (
+            <ul className="space-y-3 bg-celestial-text/5 p-4 rounded-2xl border border-celestial-outline/20 flex-grow">
+              {points.map((p, i) => (
+                <li key={i} className="flex items-start text-xs text-celestial-text/80">
+                  <ChevronRight size={14} className="text-celestial-primary mr-2 mt-0.5 shrink-0" />
+                  <span className="leading-tight">{p}</span>
+                </li>
+              ))}
+            </ul>
+          )}
+
+          <div className="flex flex-wrap gap-2">
+            {tech.map((t) => (
+              <span
+                key={t}
+                className="px-3 py-1 bg-celestial-primary/5 text-celestial-primary rounded-sm text-[10px] font-bold tracking-widest border border-celestial-primary/10 hover:bg-celestial-primary/20 transition-colors uppercase"
+              >
+                {t}
+              </span>
             ))}
-          </ul>
-        )}
+          </div>
 
-        <div className="flex flex-wrap gap-2">
-          {tech.map((t) => (
-            <span
-              key={t}
-              className="px-3 py-1 bg-celestial-primary/5 text-celestial-primary rounded-sm text-[10px] font-bold tracking-widest border border-celestial-primary/10 hover:bg-celestial-primary/20 transition-colors uppercase"
-            >
-              {t}
-            </span>
-          ))}
-        </div>
-
-        <div className="pt-2">
-          <RatingDisplay storageKey={storageKey} />
+          <div className="pt-2">
+            <RatingDisplay storageKey={storageKey} />
+          </div>
         </div>
 
         <footer className="pt-6 flex items-center space-x-6 border-t border-celestial-outline">

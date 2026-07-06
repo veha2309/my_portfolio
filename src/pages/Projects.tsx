@@ -58,7 +58,7 @@ export default function Projects() {
               visible: { opacity: 1, y: 0 }
             }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="relative group"
+            className="relative group flex flex-col h-full"
           >
             {/* Project Metadata Label - Solid Tech Feel */}
             <div className="absolute -top-6 left-2 flex items-center space-x-2">
