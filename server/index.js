@@ -29,7 +29,49 @@ const RatingSchema = new mongoose.Schema({
 });
 const Rating = mongoose.models.Rating || mongoose.model('Rating', RatingSchema);
 
+const VisitorSchema = new mongoose.Schema({
+  ip: { type: String, required: true },
+  key: { type: String, default: 'global' },
+  createdAt: { type: Date, default: Date.now }
+});
+VisitorSchema.index({ ip: 1, key: 1 }, { unique: true });
+const Visitor = mongoose.models.Visitor || mongoose.model('Visitor', VisitorSchema);
+
 // --- Routes ---
+// GET /api/visitors
+app.get('/api/visitors', async (req, res) => {
+  try {
+    await connectDB();
+    const key = req.query.key || 'global';
+    const count = await Visitor.countDocuments({ key });
+    res.json({ count });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to fetch visitor count' });
+  }
+});
+
+// POST /api/visitors
+app.post('/api/visitors', async (req, res) => {
+  try {
+    await connectDB();
+    const key = req.body.key || 'global';
+    const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress || req.ip;
+    let cleanIp = typeof ip === 'string' ? ip.split(',')[0].trim() : 'unknown';
+    
+    try {
+      await Visitor.create({ ip: cleanIp, key });
+    } catch (err) {
+      if (err.code !== 11000) {
+        throw err;
+      }
+    }
+    const count = await Visitor.countDocuments({ key });
+    res.json({ count });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to record visit' });
+  }
+});
+
 // GET /api/ratings/:key
 app.get('/api/ratings/:key', async (req, res) => {
   try {

@@ -1,11 +1,30 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Star, Github, Linkedin, Mail } from 'lucide-react';
+import axios from 'axios';
 import RatingModal, { RatingDisplay } from './RatingModal';
 
 export default function Footer() {
   const [portfolioOpen, setPortfolioOpen] = useState(false);
   const [skillsOpen, setSkillsOpen] = useState(false);
+  const [visitorCount, setVisitorCount] = useState<number | null>(null);
+
+  useEffect(() => {
+    const registerVisit = async () => {
+      try {
+        const { data } = await axios.post<{ count: number }>('/api/visitors', { key: 'global' });
+        setVisitorCount(data.count);
+      } catch {
+        try {
+          const { data } = await axios.get<{ count: number }>('/api/visitors?key=global');
+          setVisitorCount(data.count);
+        } catch (err) {
+          console.error('Failed to load visitor telemetry:', err);
+        }
+      }
+    };
+    registerVisit();
+  }, []);
 
   return (
     <footer className="relative mt-32 pb-12 space-y-16">
@@ -74,9 +93,16 @@ export default function Footer() {
 
       {/* Bottom bar */}
       <div className="flex flex-col md:flex-row items-center justify-between gap-4 pt-4 border-t border-celestial-outline/30">
-        <p className="text-celestial-text/30 text-xs font-mono tracking-widest uppercase">
-          © {new Date().getFullYear()} Vedant Shukla · Built with React + Three.js + TypeScript
-        </p>
+        <div className="flex flex-col md:flex-row items-center gap-2 md:gap-6">
+          <p className="text-celestial-text/30 text-xs font-mono tracking-widest uppercase">
+            © {new Date().getFullYear()} Vedant Shukla · Built with React + Three.js + TypeScript
+          </p>
+          {visitorCount !== null && (
+            <span className="text-celestial-primary/50 text-[10px] font-mono tracking-widest uppercase bg-celestial-primary/5 border border-celestial-primary/20 px-2.5 py-0.5 rounded-full">
+              Telemetry // Visitors // {String(visitorCount).padStart(6, '0')}
+            </span>
+          )}
+        </div>
         <div className="flex items-center space-x-4">
           {[
             { icon: <Github size={16} />, href: 'https://github.com/veha2309' },

@@ -20,3 +20,14 @@ const RatingSchema = new mongoose.Schema({
 });
 
 export const Rating = mongoose.models.Rating || mongoose.model('Rating', RatingSchema);
+
+const VisitorSchema = new mongoose.Schema({
+  ip: { type: String, required: true },
+  key: { type: String, default: 'global' },
+  createdAt: { type: Date, default: Date.now }
+});
+
+VisitorSchema.index({ ip: 1, key: 1 }, { unique: true });
+
+export const Visitor = mongoose.models.Visitor || mongoose.model('Visitor', VisitorSchema);
+
