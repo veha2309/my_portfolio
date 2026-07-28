@@ -3,7 +3,7 @@
   "outputDirectory": "dist",
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api/$1" },
-    { "source": "/((?!api|assets|images|vite\\.svg|portfolio\\.png).*)", "destination": "/index.html" }
+    { "source": "/((?!api|assets|src|@|.*\\..*).*)", "destination": "/index.html" }
   ],
   "crons": [
     {
