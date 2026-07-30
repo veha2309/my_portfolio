@@ -1,0 +1,595 @@
+/* Final layout authority: loaded after the accumulated cinematic styles. */
+html,
+body,
+#root {
+  width: 100%;
+  max-width: 100%;
+  min-height: 100%;
+  overflow-x: clip
+}
+
+.site-shell {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip
+}
+
+.hero {
+  height: 100svh;
+  min-height: 620px;
+  overflow: clip;
+  contain: paint;
+  padding-inline: clamp(24px, 5vw, 96px)
+}
+
+.hero__statement {
+  max-width: min(1400px, 92vw);
+  font-size: clamp(3.4rem, 8.8vw, 10.5rem)
+}
+
+.hero__meta,
+.hero__anchor {
+  max-width: 100%
+}
+
+/* Work handoff stays populated for its entire duration. */
+.work>.work-intro {
+  height: clamp(620px, 78svh, 820px);
+  min-height: 620px;
+  padding: 0;
+  overflow: clip
+}
+
+.work-intro__stage {
+  height: 100%;
+  min-height: 0;
+  padding: 0 7vw;
+  overflow: clip
+}
+
+.work-intro__track {
+  top: 15%;
+  left: 7vw;
+  right: 7vw
+}
+
+.work-intro__rule {
+  top: 20%;
+  left: 7vw;
+  right: 7vw
+}
+
+.work-intro__index {
+  position: absolute;
+  left: 7vw;
+  bottom: 12%;
+  transform: none !important
+}
+
+.work-intro__index h2 {
+  font-size: clamp(5rem, 12vw, 12rem);
+  margin: .12em 0 0
+}
+
+.work-intro p.work-intro__copy {
+  top: auto;
+  right: 7vw;
+  bottom: 14%;
+  max-width: 25ch;
+  font-size: clamp(1rem, 1.55vw, 1.4rem)
+}
+
+.project-deck {
+  min-height: 680px
+}
+
+.project-card {
+  max-width: calc(100vw - 48px)
+}
+
+.game-launcher {
+  left: 22px;
+  right: auto;
+  top: auto;
+  bottom: 82px;
+  min-height: 46px;
+  padding: 7px 11px 7px 13px !important;
+  border-radius: 2px !important;
+  transform: none;
+  transform-origin: top right;
+  box-shadow: 0 12px 38px rgba(0, 0, 0, .28)
+}
+
+/* Flexible editorial sections. */
+.dossier,
+.contact {
+  padding-inline: clamp(24px, 7vw, 130px)
+}
+
+.dossier__grid {
+  grid-template-columns: minmax(0, 1.45fr) minmax(280px, 1fr);
+  gap: clamp(36px, 7vw, 120px)
+}
+
+.dossier-row {
+  grid-template-columns: minmax(110px, 150px) minmax(0, 1fr)
+}
+
+.contact h2 {
+  font-size: clamp(5rem, 16vw, 16rem);
+  max-width: 100%
+}
+
+.contact__bottom {
+  flex-wrap: wrap
+}
+
+.project-focus__scroll {
+  width: 100%;
+  overflow-x: clip
+}
+
+@media(max-width:1100px) {
+  .editorial-nav {
+    padding-inline: 20px
+  }
+
+  .hero {
+    padding-top: 120px;
+    padding-bottom: 28px
+  }
+
+  .hero__statement {
+    font-size: clamp(3.6rem, 9.7vw, 7.2rem)
+  }
+
+  .hero__signal {
+    right: 4vw;
+    top: 20vh;
+    scale: .82
+  }
+
+  .work>.work-intro {
+    height: clamp(580px, 74svh, 720px);
+    min-height: 580px
+  }
+
+  .work-intro__index h2 {
+    font-size: clamp(5rem, 13vw, 9rem)
+  }
+
+  .project-card {
+    width: min(39vw, 440px);
+    height: min(31vh, 280px)
+  }
+
+  .dossier {
+    padding-top: 14vh;
+    padding-bottom: 12vh
+  }
+
+  .dossier__grid {
+    grid-template-columns: 1fr;
+    gap: 42px
+  }
+
+  .dossier header h2 {
+    font-size: clamp(4.8rem, 13vw, 9rem)
+  }
+
+  .dossier-row {
+    grid-template-columns: minmax(110px, 145px) minmax(0, 1fr)
+  }
+
+  .contact {
+    padding-top: 14vh;
+    min-height: 88svh
+  }
+
+  .contact h2 {
+    font-size: clamp(5.2rem, 17vw, 11rem)
+  }
+
+  .project-focus h2 {
+    font-size: clamp(4.5rem, 11vw, 8rem)
+  }
+
+  .project-focus__layout {
+    grid-template-columns: minmax(150px, 24vw) minmax(0, 1fr)
+  }
+}
+
+@media(max-width:700px) {
+  .editorial-nav {
+    z-index: 120;
+    padding: 14px 16px
+  }
+
+  .editorial-nav__line {
+    position: relative;
+    z-index: 2;
+    gap: 10px
+  }
+
+  .nav-index {
+    font-size: 8px
+  }
+
+  .editorial-nav:has(.nav-links--open) {
+    height: 247px
+  }
+
+  .nav-links {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 72px 16px 18px;
+    gap: 0;
+    background: linear-gradient(180deg, rgba(10, 17, 29, .995), rgba(7, 10, 16, .985)) !important;
+    border-bottom: 1px solid rgba(210, 224, 251, .3);
+    box-shadow: 0 22px 55px rgba(0, 0, 0, .52);
+    backdrop-filter: blur(18px)
+  }
+
+  .nav-links--open {
+    display: flex !important
+  }
+
+  .nav-links button {
+    width: 100%;
+    padding: 13px 0;
+    text-align: left;
+    border-bottom: 1px solid rgba(205, 220, 250, .12);
+    color: #dce5f7;
+    font-size: 9px
+  }
+
+  .nav-links button.is-active {
+    color: #fff;
+    border-color: #86a8e9
+  }
+
+  .editorial-nav--dark .nav-links {
+    background: rgba(231, 229, 222, .97) !important
+  }
+
+  .editorial-nav--dark .nav-links button {
+    color: #151719;
+    border-color: rgba(0, 0, 0, .14)
+  }
+
+  .hero {
+    height: auto;
+    min-height: 100svh;
+    padding: 96px 18px 22px
+  }
+
+  .hero__meta {
+    gap: 8px;
+    font-size: 7px
+  }
+
+  .hero__meta span:last-child {
+    margin-left: auto
+  }
+
+  .hero__signal {
+    right: 15px;
+    top: 23vh;
+    width: 86px;
+    scale: 1
+  }
+
+  .hero__statement {
+    width: 100%;
+    max-width: 100%;
+    font-size: clamp(3rem, 13.5vw, 5rem);
+    line-height: .86;
+    letter-spacing: -.065em
+  }
+
+  .hero__anchor {
+    grid-template-columns: auto 1fr auto;
+    gap: 9px;
+    margin-top: 24px;
+    font-size: 7px
+  }
+
+  .work>.work-intro {
+    height: 640px;
+    min-height: 640px
+  }
+
+  .work-intro__stage {
+    padding: 0 18px
+  }
+
+  .work-intro__track {
+    left: 18px;
+    right: 18px;
+    top: 14%;
+    font-size: 6px
+  }
+
+  .work-intro__rule {
+    left: 18px;
+    right: 18px;
+    top: 18%
+  }
+
+  .work-intro__index {
+    left: 18px;
+    right: 18px;
+    bottom: 30%
+  }
+
+  .work-intro__index h2 {
+    font-size: clamp(4.8rem, 25vw, 7.4rem)
+  }
+
+  .work-intro p.work-intro__copy {
+    left: 18px;
+    right: auto;
+    bottom: 9%;
+    max-width: 29ch;
+    font-size: 1rem
+  }
+
+  .project-deck {
+    padding: 110px 18px 70px;
+    min-height: 0
+  }
+
+  .project-deck__header {
+    margin-bottom: 24px;
+    font-size: 7px
+  }
+
+  .project-card {
+    width: 100%;
+    max-width: 100%;
+    height: 250px
+  }
+
+  .project-card__surface {
+    padding: 18px
+  }
+
+  .project-card__surface>strong {
+    left: 18px;
+    right: 18px;
+    top: 31%;
+    font-size: clamp(2rem, 10vw, 3.1rem)
+  }
+
+  .project-card__description {
+    left: 18px;
+    bottom: 47px;
+    width: 67%;
+    font-size: 9px
+  }
+
+  .project-card__chapter {
+    right: 18px;
+    top: 18px
+  }
+
+  .project-card__action {
+    right: 18px;
+    bottom: 18px
+  }
+
+  .dossier {
+    padding: 110px 18px 80px
+  }
+
+  .dossier header h2 {
+    font-size: clamp(4.2rem, 19vw, 6.2rem);
+    margin-bottom: .7em
+  }
+
+  .dossier__grid {
+    gap: 34px
+  }
+
+  .dossier-row {
+    grid-template-columns: 82px minmax(0, 1fr);
+    gap: 12px;
+    padding: 15px 0
+  }
+
+  .dossier-row h3 {
+    font-size: clamp(1.25rem, 6vw, 1.8rem)
+  }
+
+  .dossier-row p {
+    font-size: 11px;
+    overflow-wrap: anywhere
+  }
+
+  .contact {
+    min-height: 760px;
+    padding: 112px 18px 22px
+  }
+
+  .contact h2 {
+    font-size: clamp(5rem, 24vw, 7.5rem);
+    line-height: .76
+  }
+
+  .contact h2>span:nth-child(2) {
+    padding-left: 8vw
+  }
+
+  .contact__bottom {
+    flex-direction: column;
+    gap: 18px;
+    font-size: 8px
+  }
+
+  .contact__bottom>a {
+    font-size: 1rem;
+    overflow-wrap: anywhere
+  }
+
+  .contact__bottom div {
+    flex-wrap: wrap
+  }
+
+  .game-launcher {
+    right: 12px;
+    top: 62px;
+    bottom: auto;
+    min-height: 42px;
+    padding: 6px 9px !important;
+    scale: .86;
+    transform-origin: top right
+  }
+
+  .project-focus__scroll {
+    padding: 100px 18px 70px
+  }
+
+  .project-focus h2 {
+    font-size: clamp(3.7rem, 18vw, 5.8rem)
+  }
+
+  .project-focus__layout {
+    grid-template-columns: 1fr
+  }
+
+  .project-focus__media {
+    grid-template-columns: minmax(0, 1fr) 27%;
+    gap: 9px
+  }
+
+  .project-focus__media .project-media {
+    height: 300px;
+    min-height: 0
+  }
+
+  .project-focus__context {
+    grid-template-columns: 1fr
+  }
+}
+
+@media(max-width:420px) {
+  .hero__signal {
+    display: none
+  }
+
+  .hero__statement {
+    font-size: clamp(2.8rem, 14vw, 4rem)
+  }
+
+  .work-intro__track span:nth-child(even) {
+    display: none
+  }
+
+  .project-card {
+    height: 270px
+  }
+
+  .project-card__description {
+    width: 78%
+  }
+
+  .dossier-row {
+    grid-template-columns: 1fr
+  }
+
+  .dossier-row>span {
+    margin-bottom: 4px
+  }
+
+  .contact h2 {
+    font-size: 22vw
+  }
+
+  .contact h2>span:nth-child(2) {
+    padding-left: 0
+  }
+
+  .project-focus__media {
+    grid-template-columns: 1fr
+  }
+
+  .project-focus__media .project-media:nth-child(2) {
+    display: none
+  }
+}
+
+@media(max-height:700px) and (min-width:701px) {
+  .hero {
+    min-height: 600px;
+    padding-top: 100px
+  }
+
+  .hero__statement {
+    font-size: clamp(3.2rem, 8vw, 7rem)
+  }
+
+  .work>.work-intro {
+    height: 600px;
+    min-height: 600px
+  }
+
+  .project-deck {
+    min-height: 650px
+  }
+}
+
+@media(prefers-reduced-motion:reduce) {
+  .normal-tilt {
+    transform: none !important;
+    translate: none !important
+  }
+
+  .work-intro__index,
+  .work-intro__copy,
+  .work-intro__track,
+  .work-intro__rule {
+    opacity: 1 !important;
+    transform: none !important
+  }
+}
+
+/* Performance pass: these surfaces are already opaque, so live backdrop sampling
+   only adds compositor work while cards and overlays are moving. */
+.project-card,
+.project-focus,
+.project-focus__close,
+.game-launcher {
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+
+.project-focus__close,
+.game-launcher {
+  background: rgba(7, 10, 17, .96) !important;
+}
+
+.performance-lite .cursor-dot,
+.performance-lite .cursor-ring,
+.performance-lite .field-grain,
+.performance-lite .game-scanlines {
+  display: none !important;
+}
+
+.performance-lite .normal-tilt,
+.performance-lite .interactive-3d {
+  transform: none !important;
+}
+
+.performance-lite .hero__signal-core,
+.performance-lite .hero__signal-orbit,
+.performance-lite .project-deck__core i,
+.performance-lite .finance-ui__bars i,
+.performance-lite .stock-ui__candles i,
+.performance-lite .mobile-ui__chart i,
+.performance-lite .vision-ui__scan,
+.performance-lite .game-launcher i {
+  animation: none !important;
+}
