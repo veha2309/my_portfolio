@@ -25,6 +25,7 @@ Repository: [github.com/veha2309/my_portfolio](https://github.com/veha2309/my_po
 - Lightweight Web Audio feedback that begins only after user interaction
 - Reduced-effects toggle and mobile-specific controls
 - Full exit flow that restores the visitor's original portfolio position
+- Persistent unique visitor count and an anonymous community rating panel
 
 See [GAME_MODE_WALKTHROUGH.md](./GAME_MODE_WALKTHROUGH.md) for the complete interaction guide.
 
