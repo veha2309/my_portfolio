@@ -7,20 +7,31 @@ export default function Preloader({ onComplete }: PreloaderProps) {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    const startedAt = performance.now();
-    let frame = 0;
-    const updateProgress = (now: number) => {
-      const next = Math.min(100, Math.round(((now - startedAt) / 1750) * 100));
-      setProgress(next);
-      if (next < 100) frame = window.requestAnimationFrame(updateProgress);
-    };
-    frame = window.requestAnimationFrame(updateProgress);
-    const timer = window.setTimeout(() => {
+    const lite = document.documentElement.classList.contains('performance-lite');
+    // This loader is decorative. Avoid keeping a full-screen animated layer
+    // alive before useful content on constrained devices.
+    if (lite) {
+      setProgress(100);
       setDone(true);
       onComplete?.();
-    }, 2450);
+      return;
+    }
+    const startedAt = performance.now();
+    const progressDuration = 1250;
+    const totalDuration = 1750;
+    const updateProgress = () => {
+      const next = Math.min(100, Math.round(((performance.now() - startedAt) / progressDuration) * 100));
+      setProgress(next);
+    };
+    updateProgress();
+    const interval = window.setInterval(updateProgress, 50);
+    const timer = window.setTimeout(() => {
+      setProgress(100);
+      setDone(true);
+      onComplete?.();
+    }, totalDuration);
     return () => {
-      window.cancelAnimationFrame(frame);
+      window.clearInterval(interval);
       window.clearTimeout(timer);
     };
   }, [onComplete]);

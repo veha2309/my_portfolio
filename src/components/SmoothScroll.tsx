@@ -10,14 +10,15 @@ interface SmoothScrollProps {
 export default function SmoothScroll({ children }: SmoothScrollProps) {
   useEffect(() => {
     // Disable smooth scroll on mobile for native feel
-    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+    const useNativeScroll = window.matchMedia('(max-width: 820px), (prefers-reduced-motion: reduce)').matches
+      || document.documentElement.classList.contains('performance-lite');
     const nativeNavigate = (event: Event) => {
       const { target } = (event as CustomEvent<{ target: HTMLElement | number }>).detail;
       if (typeof target === 'number') window.scrollTo({ top: target, behavior: 'auto' });
       else target.scrollIntoView({ behavior: 'smooth', block: 'start' });
     };
 
-    if (isMobile) {
+    if (useNativeScroll) {
       window.addEventListener('portfolio:navigate', nativeNavigate);
       return () => window.removeEventListener('portfolio:navigate', nativeNavigate);
     }

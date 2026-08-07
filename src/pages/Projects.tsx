@@ -14,10 +14,10 @@ type Item = {
 };
 
 const works: Item[] = [
-  { key: 'finance', number: '01', title: 'FinanceFlow', chapter: 'OBSERVE', eyebrow: 'OPERATIONAL CLARITY', description: 'A personal finance dashboard built around secure accounts, transaction analysis, and readable financial history.', stack: 'React · TypeScript · Supabase · Zustand · Recharts', outcome: '30 DAY / VIEW', link: 'https://github.com/veha2309/FinanceFlow', asset: 'Interactive financial overview', detail: 'Analytics / transaction intelligence' },
-  { key: 'stock', number: '02', title: 'StockPulse', chapter: 'INTERPRET', eyebrow: 'CONTROLLED DENSITY', description: 'A web-based market monitoring and portfolio interface with a deliberate, information-first terminal architecture.', stack: 'Next.js · TypeScript · Tailwind · Supabase · PostgreSQL', outcome: 'MARKET / FOCUS', link: 'https://github.com/veha2309/StockPulse', asset: 'Live market terminal', detail: 'Price / portfolio intelligence' },
-  { key: 'stock-mobile', number: '03', title: 'StockPulse\nMobile', chapter: 'ACT', eyebrow: 'MOBILE TRADING SYSTEM', description: 'A Flutter trading companion focused on interactive market charts, portfolio positions, and per-holding risk controls in a compact mobile interface.', stack: 'Flutter · Provider · Supabase · Hive · Yahoo Finance API', outcome: 'TRADE / MOBILE', link: 'https://github.com/veha2309/StockPulseMobile-', asset: 'Mobile trading terminal', detail: 'Chart / per-holding risk controls' },
-  { key: 'vision', number: '04', title: 'Vision\nAssistant', chapter: 'ENABLE', eyebrow: 'SPATIAL ACCESSIBILITY', description: 'An assistive camera experience designed to surface environmental context and navigation cues for people with visual impairments.', stack: 'Flutter · TensorFlow Lite · Camera', outcome: 'SEE / SAFER', link: 'https://github.com/veha2309/vision_assistant', asset: 'Spatial perception system', detail: 'Detection / navigation context' },
+  { key: 'finance', number: '01', title: 'FinanceFlow', chapter: 'WEB APP', eyebrow: '2026', description: 'A personal finance dashboard for reviewing accounts, transactions, and spending patterns without losing the thread.', stack: 'React · TypeScript · Supabase · Zustand · Recharts', outcome: 'PERSONAL FINANCE', link: 'https://github.com/veha2309/FinanceFlow', asset: 'Financial overview', detail: 'Accounts and transaction analysis' },
+  { key: 'stock', number: '02', title: 'StockPulse', chapter: 'WEB APP', eyebrow: '2026', description: 'A market dashboard that brings watchlists, holdings, and price movement into one information-dense workspace.', stack: 'Next.js · TypeScript · Tailwind · Supabase · PostgreSQL', outcome: 'MARKET DATA', link: 'https://github.com/veha2309/StockPulse', asset: 'Market dashboard', detail: 'Prices and portfolio positions' },
+  { key: 'stock-mobile', number: '03', title: 'StockPulse\nMobile', chapter: 'MOBILE APP', eyebrow: '2025', description: 'A Flutter trading companion with interactive charts, portfolio positions, and risk controls designed for a small screen.', stack: 'Flutter · Provider · Supabase · Hive · Yahoo Finance API', outcome: 'FLUTTER MOBILE', link: 'https://github.com/veha2309/StockPulseMobile-', asset: 'Mobile trading app', detail: 'Charts and risk controls' },
+  { key: 'vision', number: '04', title: 'Vision\nAssistant', chapter: 'ACCESSIBILITY', eyebrow: '2025', description: 'An on-device camera assistant that turns object detection into clear environmental and navigation cues.', stack: 'Flutter · TensorFlow Lite · Camera', outcome: 'ON-DEVICE ML', link: 'https://github.com/veha2309/vision_assistant', asset: 'Camera assistant', detail: 'Detection and navigation cues' },
 ];
 
 const projectEvidence: Partial<Record<CanvasScene, string[]>> = {
@@ -44,7 +44,7 @@ function ProjectVisual({ kind, secondary, label, detail }: { kind: CanvasScene; 
         {kind === 'stock-mobile' && <div className="mobile-ui__device"><div className="mobile-ui__island"/><div className="mobile-ui__quote"><span>NVDA</span><strong>$ 138.85</strong><em>+2.14%</em></div><div className="mobile-ui__chart">{candles.slice(2).map((height, index) => <i style={{ height: `${height}%` }} key={index} />)}</div><div className="mobile-ui__risk"><span>STOP LOSS <b>132.40</b></span><span>TAKE PROFIT <b>146.00</b></span></div></div>}
         {kind === 'vision' && <><div className="vision-ui__scan"/><div className="vision-ui__target vision-ui__target--one"><b>PERSON</b><span>94%</span></div><div className="vision-ui__target vision-ui__target--two"><b>DOOR</b><span>87%</span></div><div className="vision-ui__cue">PATH CLEAR / 2.4 M</div></>}
       </div>
-      <span className="project-media__label">{label}</span><span className="project-media__detail">{detail}</span><b>{secondary ? 'DETAIL FEED' : 'LIVE SYSTEM'}</b>
+      <span className="project-media__label">{label}</span><span className="project-media__detail">{detail}</span><b>{secondary ? 'DETAIL' : 'PROJECT VIEW'}</b>
     </div>
   </div>;
 }
@@ -83,6 +83,8 @@ export default function Projects() {
   useGSAP(() => {
     const root = ref.current;
     if (!root) return;
+    const lite = document.documentElement.classList.contains('performance-lite');
+    if (lite) return;
     const mm = gsap.matchMedia();
 
     mm.add('(prefers-reduced-motion: no-preference)', () => {
@@ -96,17 +98,45 @@ export default function Projects() {
       const cards = gsap.utils.toArray<HTMLElement>('.project-card', root);
       if (!deck || !cards.length) return;
       const destinations = [
-        { x: '-27vw', y: '-17vh', rotation: -7 },
-        { x: '27vw', y: '-16vh', rotation: 6 },
-        { x: '-25vw', y: '19vh', rotation: 5 },
-        { x: '26vw', y: '18vh', rotation: -6 },
+        { x: '-27vw', y: '-17vh', rotation: -5 },
+        { x: '27vw', y: '-16vh', rotation: 4 },
+        { x: '-26vw', y: '18vh', rotation: 4 },
+        { x: '27vw', y: '18vh', rotation: -4 },
       ];
-      gsap.set(cards, { x: 0, y: 0, rotation: (index) => (index - 1.5) * 1.8, scale: (index) => .88 - index * .015, zIndex: (index) => cards.length - index, transformPerspective: 1200 });
-      gsap.timeline({ scrollTrigger: { trigger: deck, start: 'top top', end: '+=145%', pin: true, scrub: .8, anticipatePin: 1, invalidateOnRefresh: true, onEnter: () => transitionScene('work-intro', 1), onEnterBack: () => transitionScene('work-intro', -1) } })
-        .fromTo('.project-deck__instruction', { autoAlpha: 0, y: 12 }, { autoAlpha: 1, y: 0, duration: .12 }, 0)
-        .to(cards, { x: (index) => destinations[index].x, y: (index) => destinations[index].y, rotation: (index) => destinations[index].rotation, scale: 1, stagger: .025, duration: .62, ease: 'power3.inOut' }, .12)
-        .to('.project-deck__core', { scale: .68, autoAlpha: .12, duration: .45 }, .18)
-        .to('.project-deck__instruction', { autoAlpha: .55, duration: .2 }, .72);
+      gsap.set(cards, {
+        x: 0,
+        y: (index) => index * 5,
+        rotation: (index) => (index - 1.5) * 1.2,
+        scale: (index) => .92 - index * .018,
+        zIndex: (index) => cards.length - index,
+        force3D: true,
+      });
+      gsap.timeline({
+        scrollTrigger: {
+          trigger: deck,
+          start: 'top top',
+          end: '+=125%',
+          pin: true,
+          scrub: .72,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+          onEnter: () => transitionScene('work-intro', 1),
+          onEnterBack: () => transitionScene('work-intro', -1),
+          onToggle: (self) => document.documentElement.classList.toggle('project-motion-active', self.isActive),
+        },
+      })
+        .fromTo('.project-deck__header span, .project-deck__header strong', { autoAlpha: 0, y: 10 }, { autoAlpha: 1, y: 0, stagger: .08, duration: .2, ease: 'power2.out' }, 0)
+        .to(cards, {
+          x: (index) => destinations[index].x,
+          y: (index) => destinations[index].y,
+          rotation: (index) => destinations[index].rotation,
+          scale: 1,
+          stagger: .045,
+          duration: .72,
+          ease: 'power3.inOut',
+          force3D: true,
+        }, .08);
+      return () => document.documentElement.classList.remove('project-motion-active');
     });
 
     mm.add('(pointer: fine) and (prefers-reduced-motion: no-preference)', () => {
@@ -132,21 +162,19 @@ export default function Projects() {
   }, { scope: ref });
 
   return <div ref={ref} className="work">
-    <section className="work-intro" data-scene="work-intro"><div className="work-intro__stage"><div className="work-intro__index"><span className="eyebrow">SELECTED SYSTEMS</span><h2>01—04</h2></div><p className="work-intro__copy">Four systems. One field. Scroll to release the archive, then select a project to enter it.</p><div className="work-intro__track"><span>OBSERVE</span><span>INTERPRET</span><span>ACT</span><span>ENABLE</span></div><div className="work-intro__rule"><span /></div></div></section>
+    <section className="work-intro" data-scene="work-intro"><div className="work-intro__stage"><div className="work-intro__index"><span className="eyebrow">SELECTED WORK</span><h2>01—04</h2></div><p className="work-intro__copy">Four products across personal finance, market tools, mobile engineering, and accessible computing.</p><div className="work-intro__track"><span>WEB</span><span>MOBILE</span><span>PRODUCT</span><span>ACCESSIBILITY</span></div><div className="work-intro__rule"><span /></div></div></section>
 
     <section className="project-deck" aria-label="Interactive project archive">
-      <div className="project-deck__core" aria-hidden="true"><i/><i/><i/></div>
-      <header className="project-deck__header"><span>PROJECT CONSTELLATION / 04 SYSTEMS</span><strong>SCROLL TO SCATTER</strong></header>
+      <header className="project-deck__header"><span>PROJECTS / 04</span><strong>SELECTED CASE STUDIES</strong></header>
       <div className="project-deck__cards">
-        {works.map((item) => <button className={`project-card project-card--${item.key}`} key={item.key} onClick={() => openProject(item)} onPointerEnter={() => transitionScene(item.key, 1)} data-cursor="OPEN" aria-label={`Open ${item.title.replace('\n', ' ')} project`}>
-          <span className="project-card__surface interactive-3d"><span className="project-card__index">{item.number}</span><span className="project-card__chapter">{item.chapter} / {item.eyebrow}</span><strong>{item.title.replace('\n', ' ')}</strong><span className="project-card__description">{item.description}</span><span className="project-card__action">ENTER SYSTEM <ArrowUpRight size={13}/></span></span>
+        {works.map((item) => <button className={`project-card project-card--${item.key}`} key={item.key} onClick={() => openProject(item)} data-cursor="OPEN" aria-label={`Open ${item.title.replace('\n', ' ')} project`}>
+          <span className="project-card__surface interactive-3d"><span className="project-card__index">{item.number}</span><span className="project-card__chapter">{item.chapter} / {item.eyebrow}</span><strong>{item.title.replace('\n', ' ')}</strong><span className="project-card__description">{item.description}</span><span className="project-card__action">VIEW PROJECT <ArrowUpRight size={13}/></span></span>
         </button>)}
       </div>
-      <div className="project-deck__instruction"><span>SCROLL / RELEASE</span><i/><span>SELECT / ENTER</span></div>
     </section>
 
     {activeProject && <div className={`project-focus project-focus--${activeProject.key}`} role="dialog" aria-modal="true" aria-label={`${activeProject.title.replace('\n', ' ')} project details`}>
-      <button className="project-focus__close" onClick={closeProject} data-cursor="CLOSE" aria-label="Back to project archive"><X size={18}/><span>BACK TO ARCHIVE / ESC</span></button>
+      <button className="project-focus__close" onClick={closeProject} data-cursor="CLOSE" aria-label="Back to projects"><X size={18}/><span>BACK TO PROJECTS / ESC</span></button>
       <div className="project-focus__scroll">
         <header className="project-focus__header"><span>{activeProject.number} / {activeProject.chapter}</span><span>{activeProject.eyebrow}</span></header>
         <h2>{activeProject.title.split('\n').map((line) => <span key={line}>{line}</span>)}</h2>
@@ -155,7 +183,7 @@ export default function Projects() {
           <div className="project-focus__media"><ProjectVisual kind={activeProject.key} label={activeProject.asset} detail={activeProject.detail}/><ProjectVisual kind={activeProject.key} secondary label={activeProject.detail} detail="secondary system feed"/></div>
         </div>
         {activeProject.key === 'stock-mobile' && <div className="project-focus__context"><span>PARALLEL CONTEXT / PLASTISENSE</span><p>Alongside the trading work, PlastiSense explored a hardware–software workflow for observing microplastics in water samples during Smart India Hackathon.</p><a href="https://github.com/veha2309/PlastiSense-Flutter/tree/master" target="_blank" rel="noreferrer">VIEW RESEARCH CONTEXT <ArrowUpRight size={14}/></a></div>}
-        <button className="project-focus__back" onClick={closeProject}><span>RETURN TO PROJECT CONSTELLATION</span><ArrowUpRight size={18}/></button>
+        <button className="project-focus__back" onClick={closeProject}><span>RETURN TO ALL PROJECTS</span><ArrowUpRight size={18}/></button>
       </div>
     </div>}
   </div>;
