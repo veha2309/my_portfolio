@@ -30,8 +30,11 @@ export function SceneProvider({ children }: { children: ReactNode }) {
     if (to === scene || lock.current) return;
     lock.current = true;
     setTransition({ from: scene, to, direction, progress: 0 });
-    window.setTimeout(() => { setScene(to); setTransition({ from: to, to, direction, progress: 1 }); lock.current = false; }, 1250);
+    const duration = document.documentElement.classList.contains('performance-lite') ? 0 : 1250;
+    window.setTimeout(() => { setScene(to); setTransition({ from: to, to, direction, progress: 1 }); lock.current = false; }, duration);
   }, [scene]);
   return <SceneContext.Provider value={{ scene, transition, transitionScene, foregroundFor: (key) => foreground[key], navigationMode: foreground[scene] === 'dark-text' ? 'dark' : 'light', pointer }}>{children}</SceneContext.Provider>;
 }
+// The provider and its consumer hook intentionally share this context module.
+// eslint-disable-next-line react-refresh/only-export-components
 export function useSceneStore() { const value = useContext(SceneContext); if (!value) throw new Error('SceneProvider required'); return value; }

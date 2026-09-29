@@ -8,8 +8,9 @@ export default function BackgroundCanvas() {
   const { scene, transition, pointer } = useSceneStore();
   const reduced = usePrefersReducedMotion();
   const finePointer = useHasFinePointer();
+  const lite = document.documentElement.classList.contains('performance-lite');
   useEffect(() => {
-    if (!finePointer || reduced) return;
+    if (!finePointer || reduced || lite) return;
     let frame = 0;
     const canvas = document.querySelector<HTMLElement>('.field-canvas');
     const update = (event: PointerEvent) => {
@@ -26,11 +27,11 @@ export default function BackgroundCanvas() {
     };
     addEventListener('pointermove', update, { passive: true });
     return () => { removeEventListener('pointermove', update); cancelAnimationFrame(frame); };
-  }, [finePointer, pointer, reduced]);
+  }, [finePointer, lite, pointer, reduced]);
   const from = transition.from;
   const to = transition.to === scene ? scene : transition.to;
   const changing = transition.from !== transition.to;
-  return <div className={`field-canvas ${reduced ? 'field-canvas--still' : ''} field-canvas--${transition.direction > 0 ? 'forward' : 'backward'} ${changing ? 'field-canvas--changing' : ''}`} aria-hidden="true">
+  return <div className={`field-canvas ${reduced || lite ? 'field-canvas--still' : ''} field-canvas--${transition.direction > 0 ? 'forward' : 'backward'} ${changing ? 'field-canvas--changing' : ''}`} aria-hidden="true">
     <div className={`field field--${from} field--current`} />
     <div className={`field field--${to} field--next`} />
     <div className="field-depth field-depth--near" />

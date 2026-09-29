@@ -10,6 +10,7 @@ import Preloader from './components/Preloader';
 import SmoothScroll from './components/SmoothScroll';
 import { SceneProvider } from './store/useSceneStore';
 import GameModeLauncher from './game-mode/GameModeLauncher';
+import { watchPerformanceMode } from './utils/performance';
 const BackgroundCanvas = lazy(() => import('./components/webgl/BackgroundCanvas'));
 const GameModeRoot = lazy(() => import('./game-mode/GameModeRoot'));
 
@@ -24,10 +25,7 @@ function AppContent() {
     return () => document.removeEventListener('contextmenu', blockContextMenu);
   }, []);
   useEffect(() => {
-    const memory = (navigator as Navigator & { deviceMemory?: number }).deviceMemory;
-    const lite = matchMedia('(pointer: coarse)').matches || navigator.hardwareConcurrency <= 4 || (memory !== undefined && memory <= 4);
-    document.documentElement.classList.toggle('performance-lite', lite);
-    return () => document.documentElement.classList.remove('performance-lite');
+    return watchPerformanceMode();
   }, []);
   useEffect(() => {
     const onPopState = () => setGameMode(new URLSearchParams(window.location.search).get('mode') === 'game');
@@ -46,7 +44,7 @@ function AppContent() {
     };
   }, [gameMode]);
   useEffect(() => {
-    if (!matchMedia('(pointer: fine) and (prefers-reduced-motion: no-preference)').matches) return;
+    if (document.documentElement.classList.contains('performance-lite') || !matchMedia('(pointer: fine) and (prefers-reduced-motion: no-preference)').matches) return;
     let active: HTMLElement[] = []; let latest: PointerEvent | null = null; let frame = 0;
     const reset = (elements: HTMLElement[]) => elements.forEach((element) => {
       element.style.setProperty('--normal-rx', '0deg'); element.style.setProperty('--normal-ry', '0deg');
@@ -59,7 +57,7 @@ function AppContent() {
       const next = scope?.classList.contains('dossier')
         ? [target.closest<HTMLElement>('.dossier-row')].filter((item): item is HTMLElement => Boolean(item))
         : scope?.classList.contains('hero')
-          ? Array.from(scope.querySelectorAll<HTMLElement>('.hero__statement.normal-tilt,.hero__signal.normal-tilt'))
+          ? Array.from(scope.querySelectorAll<HTMLElement>('.hero__statement.normal-tilt'))
           : scope?.classList.contains('contact')
             ? Array.from(scope.querySelectorAll<HTMLElement>('.contact__aperture.normal-tilt')) : [];
       if (next.length !== active.length || next.some((element, index) => element !== active[index])) { reset(active); active = next; }
@@ -77,7 +75,8 @@ function AppContent() {
   }, []);
   const enterGameMode = () => {
     if (modeTransition) return;
-    const url = new URL(window.location.href); url.searchParams.set('mode', 'game');
+    const url = new URL(window.location.href);
+    url.searchParams.set('mode', 'game');
     window.history.pushState({ mode: 'game' }, '', `${url.pathname}${url.search}${url.hash}`);
     setModeTransition('entering');
     window.setTimeout(() => setGameMode(true), 280);

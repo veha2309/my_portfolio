@@ -4,12 +4,13 @@ import { useHasFinePointer, usePrefersReducedMotion } from '../hooks/usePrefersR
 export default function Cursor() {
   const finePointer = useHasFinePointer();
   const reduced = usePrefersReducedMotion();
+  const lite = document.documentElement.classList.contains('performance-lite');
   const dot = useRef<HTMLDivElement>(null);
   const ring = useRef<HTMLDivElement>(null);
   const label = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
-    if (!finePointer || reduced) return;
+    if (!finePointer || reduced || lite) return;
     document.documentElement.classList.add('has-custom-cursor');
     let targetX = innerWidth / 2; let targetY = innerHeight / 2;
     let ringX = targetX; let ringY = targetY; let frame = 0;
@@ -37,8 +38,8 @@ export default function Cursor() {
     const refreshHover = () => setHover(document.elementFromPoint(targetX, targetY));
     addEventListener('pointermove', move, { passive: true }); addEventListener('scroll', refreshHover, { passive: true });
     return () => { document.documentElement.classList.remove('has-custom-cursor'); removeEventListener('pointermove', move); removeEventListener('scroll', refreshHover); cancelAnimationFrame(frame); };
-  }, [finePointer, reduced]);
+  }, [finePointer, lite, reduced]);
 
-  if (!finePointer || reduced) return null;
+  if (!finePointer || reduced || lite) return null;
   return <><div ref={dot} className="cursor-dot" /><div ref={ring} className="cursor-ring"><span ref={label} /></div></>;
 }

@@ -602,3 +602,316 @@ body,
 .performance-lite .game-launcher i {
   animation: none !important;
 }
+
+/* Low-power layout: keep the same content and visual language without pinned
+   scrolling, permanent compositor layers, or four overlapping 3D cards. */
+.performance-lite .field-depth,
+.performance-lite .contact__aperture {
+  display: none !important;
+}
+
+/* Lite mode spends its frame budget on readable content. The browser can skip
+   painting long off-screen sections and avoids costly live filter sampling. */
+.performance-lite #resume,
+.performance-lite .contact {
+  content-visibility: auto;
+  contain-intrinsic-block-size: auto 900px;
+}
+
+.performance-lite .editorial-nav,
+.performance-lite .nav-links,
+.performance-lite .cursor-ring--active {
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+
+.performance-lite .editorial-nav {
+  background: rgba(8, 10, 15, .96);
+  mask-image: none;
+}
+
+.performance-lite .editorial-nav--dark {
+  background: rgba(231, 229, 222, .96);
+}
+
+.performance-lite *,
+.performance-lite *::before,
+.performance-lite *::after {
+  animation-duration: .01ms !important;
+  animation-iteration-count: 1 !important;
+}
+
+.performance-lite .field,
+.performance-lite .project-card__surface {
+  will-change: auto !important;
+  transition-duration: .2s !important;
+}
+
+.performance-lite .project-deck {
+  height: auto;
+  min-height: 0;
+  padding: 110px clamp(18px, 5vw, 64px) 80px;
+  overflow: visible;
+}
+
+.performance-lite .project-deck__header {
+  position: relative;
+  inset: auto;
+  margin-bottom: 24px;
+}
+
+.performance-lite .project-deck__cards {
+  position: relative;
+  inset: auto;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.performance-lite .project-card {
+  position: relative;
+  width: 100%;
+  max-width: none;
+  height: 270px;
+  min-height: 0;
+  transform: none !important;
+  box-shadow: 0 14px 35px rgba(0, 0, 0, .28);
+}
+
+.performance-lite .project-deck__core,
+.performance-lite .project-deck__instruction {
+  display: none;
+}
+
+@media(max-width:700px) {
+  .performance-lite .project-deck__cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Authored portfolio pass: direct navigation, quieter case studies, and one
+   explicit quality choice instead of hidden device-dependent behavior. */
+.editorial-nav__line {
+  grid-template-columns: 1fr auto auto;
+}
+
+.quality-control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: currentColor;
+  font: 8px var(--font-mono);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.quality-control span {
+  opacity: .62;
+}
+
+.quality-control b {
+  color: currentColor;
+  font-weight: 500;
+  opacity: 1;
+}
+
+.quality-control select {
+  min-height: 28px;
+  padding: 4px 22px 4px 8px;
+  border: 1px solid currentColor;
+  border-radius: 0;
+  color: currentColor;
+  background: #0b0d12;
+  font: inherit;
+  letter-spacing: inherit;
+  cursor: pointer;
+}
+
+.editorial-nav--dark .quality-control select {
+  background: #e7e5de;
+}
+
+.performance-lite .project-deck {
+  height: auto;
+  min-height: 0;
+  padding: 120px clamp(24px, 7vw, 130px) 140px;
+  overflow: visible;
+  perspective: none;
+}
+
+.performance-lite .project-deck__header {
+  position: relative;
+  inset: auto;
+  margin-bottom: 34px;
+  color: #97a3ba;
+}
+
+.performance-lite .project-deck__cards {
+  position: relative;
+  inset: auto;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  transform-style: flat;
+}
+
+.performance-lite .project-card {
+  position: relative;
+  width: 100%;
+  max-width: none;
+  height: 330px;
+  padding: 0;
+  border-color: rgba(171, 190, 228, .24);
+  background: #111723;
+  box-shadow: none;
+  transform: none !important;
+  backdrop-filter: none;
+}
+
+.project-card--stock { background: #15202a; }
+.project-card--stock-mobile { background: #141a32; }
+.project-card--vision { background: #1d1932; }
+
+.project-card::before {
+  opacity: .14;
+}
+
+.project-card::after {
+  display: none;
+}
+
+.performance-lite .project-card:hover,
+.performance-lite .project-card:focus-visible {
+  border-color: rgba(190, 210, 248, .72);
+  box-shadow: 0 18px 46px rgba(0, 0, 0, .22);
+  transform: translateY(-3px) !important;
+}
+
+.performance-lite .project-card__surface {
+  transform: none !important;
+  will-change: auto;
+}
+
+.project-card__surface::after {
+  display: none;
+}
+
+.project-card__surface>strong {
+  top: 27%;
+  font-size: clamp(2rem, 3.5vw, 3.8rem);
+  text-transform: none;
+}
+
+.project-card__description {
+  width: min(76%, 52ch);
+  bottom: 54px;
+  color: #b3bdcf;
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.performance-lite .project-card__surface>strong,
+.performance-lite .project-card__description,
+.performance-lite .project-card__surface>.project-card__index,
+.performance-lite .project-card__surface>.project-card__chapter,
+.performance-lite .project-card__surface>.project-card__action {
+  transform: none;
+}
+
+.project-deck__core,
+.project-deck__instruction,
+.contact__aperture {
+  display: none;
+}
+
+.project-motion-active .field-depth {
+  animation-play-state: paused !important;
+}
+
+html:not(.performance-lite) .project-deck {
+  height: 100svh;
+  min-height: 700px;
+  padding: 0;
+  overflow: hidden;
+  perspective: 1400px;
+}
+
+html:not(.performance-lite) .project-deck__header {
+  position: absolute;
+  inset: 12vh 7vw auto;
+  margin: 0;
+}
+
+html:not(.performance-lite) .project-deck__cards {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  transform-style: preserve-3d;
+}
+
+html:not(.performance-lite) .project-card {
+  position: absolute;
+  width: min(31vw, 500px);
+  max-width: calc(100vw - 48px);
+  height: min(30vh, 300px);
+  min-height: 240px;
+}
+
+.contact__intro {
+  width: min(620px, 70vw);
+  margin: 3vh 0 8vh auto;
+  color: #abb8cf;
+  font-size: clamp(1rem, 1.7vw, 1.35rem);
+  line-height: 1.55;
+}
+
+@media(max-width:700px) {
+  .editorial-nav__line {
+    grid-template-columns: 1fr auto auto;
+  }
+
+  .quality-control span {
+    display: none;
+  }
+
+  .quality-control select {
+    min-height: 26px;
+    width: 62px;
+    padding-inline: 6px;
+    font-size: 7px;
+  }
+
+  .nav-index {
+    display: none;
+  }
+
+  .project-deck,
+  .performance-lite .project-deck {
+    padding: 100px 18px 90px;
+  }
+
+  .project-deck__cards,
+  .performance-lite .project-deck__cards {
+    grid-template-columns: 1fr;
+  }
+
+  html:not(.performance-lite) .project-card,
+  .performance-lite .project-card {
+    height: 285px;
+  }
+
+  .project-card__surface>strong {
+    top: 29%;
+  }
+
+  .project-card__description {
+    width: 74%;
+    font-size: 10px;
+  }
+
+  .contact__intro {
+    width: 100%;
+    margin: 30px 0 70px;
+  }
+}
