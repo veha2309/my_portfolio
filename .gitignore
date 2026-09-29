@@ -23,3 +23,13 @@ dist-ssr
 *.sln
 *.sw?
 .vercel
+.env
+.env.*
+!.env.example
+test-results/
+playwright-report/
+artifacts/*.png
+artifacts/*lighthouse.json
+artifacts/*lighthouse.html
+artifacts/*trace.json
+.env

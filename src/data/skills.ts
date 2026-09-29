@@ -3,8 +3,30 @@ export interface Skills {
 }
 
 export const skills: Skills = {
-  Languages: ['JavaScript', 'TypeScript', 'Dart', 'Python', 'C++', 'Java', 'HTML/CSS', 'SQL'],
-  'Frameworks & Libraries': ['React.js', 'Next.js', 'Flutter', 'Redux', 'Tailwind CSS'],
-  'Backend & Databases': ['Node.js', 'Express.js', 'REST APIs', 'MongoDB', 'PostgreSQL', 'Firebase'],
-  Tools: ['Git', 'GitHub', 'Docker', 'AWS', 'Vercel', 'Postman'],
+  Languages: [
+    "JavaScript",
+    "TypeScript",
+    "Dart",
+    "Python",
+    "C++",
+    "Java",
+    "HTML/CSS",
+    "SQL",
+  ],
+  "Frameworks & Libraries": [
+    "React.js",
+    "Next.js",
+    "Flutter",
+    "Redux",
+    "Tailwind CSS",
+  ],
+  "Backend & Databases": [
+    "Node.js",
+    "Express.js",
+    "REST APIs",
+    "MongoDB",
+    "PostgreSQL",
+    "Firebase",
+  ],
+  Tools: ["Git", "GitHub", "Docker", "AWS", "Vercel", "Postman"],
 };

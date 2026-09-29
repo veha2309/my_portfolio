@@ -1,0 +1,10 @@
+{
+  "fileKey": "cFnVMkwfMPEWwEtxDNvIX0",
+  "url": "https://www.figma.com/design/cFnVMkwfMPEWwEtxDNvIX0",
+  "status": "Starter MCP limit blocked composition, screenshots and export. Website continues from approved plan, not a verified Figma handoff.",
+  "frames": {"desktop": "4:2", "mobile": "4:3", "caseStudy": "4:4", "foundations": "4:5"},
+  "collection": "VariableCollectionId:8:2",
+  "artwork": {"financeflow": "8:46", "stockpulse": "8:75", "stockpulse-mobile": "8:104", "vision-assistant": "8:121"},
+  "completed": ["file", "screen containers", "color and spacing variables", "typography styles", "foundations", "four illustration components"],
+  "pending": ["screen composition", "interaction components", "screenshots", "asset exports", "design context and visual comparison"]
+}

@@ -1,130 +1,21 @@
+// Optional local API bridge. Production uses the same handlers on Vercel.
 const express = require('express');
-const mongoose = require('mongoose');
-const cors = require('cors');
-const dns = require('dns');
-require('dotenv').config();
-
-// Force Google DNS — ISP DNS blocks MongoDB SRV lookups
-dns.setDefaultResultOrder('ipv4first');
-dns.setServers(['8.8.8.8', '8.8.4.4']);
-
+const path = require('node:path');
+require('dotenv').config({ path: path.join(__dirname, '../.env.local') });
 const app = express();
-app.use(cors());
-app.use(express.json());
-
-// --- DB + Model ---
-let connected = false;
-async function connectDB() {
-  if (connected) return;
-  await mongoose.connect(process.env.MONGO_URI);
-  connected = true;
-  console.log('MongoDB connected');
+app.use(express.json({ limit: '8kb' }));
+for (const [route, modulePath] of [
+  ['/api/inquiries', '../api/inquiries.js'],
+  ['/api/feedback', '../api/feedback.js'],
+  ['/api/admin/session', '../api/admin/session.js'],
+  ['/api/ratings', '../api/ratings.js'],
+  ['/api/ratings/:key', '../api/ratings.js'],
+  ['/api/visitors', '../api/visitors.js'],
+  ['/api/keepalive', '../api/keepalive.js'],
+]) {
+  app.all(route, async (req, res) => {
+    try { const { default: handler } = await import(modulePath); await handler(req, res); }
+    catch { res.status(503).json({ error: 'Service unavailable.' }); }
+  });
 }
-
-const RatingSchema = new mongoose.Schema({
-  storageKey: { type: String, required: true },
-  name:       { type: String, required: true },
-  rating:     { type: Number, required: true, min: 0.5, max: 5 },
-  createdAt:  { type: Date, default: Date.now },
-});
-const Rating = mongoose.models.Rating || mongoose.model('Rating', RatingSchema);
-
-const VisitorSchema = new mongoose.Schema({
-  ip: { type: String, required: true },
-  key: { type: String, default: 'global' },
-  createdAt: { type: Date, default: Date.now }
-});
-VisitorSchema.index({ ip: 1, key: 1 }, { unique: true });
-const Visitor = mongoose.models.Visitor || mongoose.model('Visitor', VisitorSchema);
-
-// --- Routes ---
-// GET /api/visitors
-app.get('/api/visitors', async (req, res) => {
-  try {
-    await connectDB();
-    const key = req.query.key || 'global';
-    const count = await Visitor.countDocuments({ key });
-    res.json({ count });
-  } catch (err) {
-    res.status(500).json({ error: 'Failed to fetch visitor count' });
-  }
-});
-
-// POST /api/visitors
-app.post('/api/visitors', async (req, res) => {
-  try {
-    await connectDB();
-    const key = req.body.key || 'global';
-    const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress || req.ip;
-    let cleanIp = typeof ip === 'string' ? ip.split(',')[0].trim() : 'unknown';
-    
-    try {
-      await Visitor.create({ ip: cleanIp, key });
-    } catch (err) {
-      if (err.code !== 11000) {
-        throw err;
-      }
-    }
-    const count = await Visitor.countDocuments({ key });
-    res.json({ count });
-  } catch (err) {
-    res.status(500).json({ error: 'Failed to record visit' });
-  }
-});
-
-// GET /api/ratings/:key
-app.get('/api/ratings/:key', async (req, res) => {
-  try {
-    await connectDB();
-    const entries = await Rating.find({ storageKey: req.params.key }).sort({ createdAt: -1 });
-    res.json(entries);
-  } catch (err) {
-    res.status(500).json({ error: 'Failed to fetch ratings' });
-  }
-});
-
-// POST /api/ratings
-app.post('/api/ratings', async (req, res) => {
-  try {
-    await connectDB();
-    const { storageKey, name, rating } = req.body;
-    if (!storageKey || !name || !rating) return res.status(400).json({ error: 'Missing fields' });
-    const entry = await Rating.create({ storageKey, name, rating });
-    res.status(201).json(entry);
-  } catch (err) {
-    res.status(500).json({ error: 'Failed to save rating' });
-  }
-});
-
-// GET /api/keepalive
-app.get('/api/keepalive', async (req, res) => {
-  try {
-    await connectDB();
-    const dummy = await Rating.create({ storageKey: '__keepalive__', name: 'ping', rating: 5 });
-    await Rating.deleteOne({ _id: dummy._id });
-    res.json({ ok: true, time: new Date().toISOString() });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-});
-
-// --- Start ---
-const PORT = process.env.PORT || 5000;
-const TEN_DAYS = 10 * 24 * 60 * 60 * 1000;
-
-app.listen(PORT, async () => {
-  console.log(`Server running on port ${PORT}`);
-  await connectDB();
-  // keep-alive ping on start then every 10 days
-  const ping = async () => {
-    try {
-      const d = await Rating.create({ storageKey: '__keepalive__', name: 'ping', rating: 5 });
-      await Rating.deleteOne({ _id: d._id });
-      console.log('Keep-alive ping sent');
-    } catch (e) {
-      console.error('Keep-alive failed:', e.message);
-    }
-  };
-  ping();
-  setInterval(ping, TEN_DAYS);
-});
+app.listen(process.env.PORT || 5000, '127.0.0.1', () => console.log('Local Supabase API bridge is ready.'));

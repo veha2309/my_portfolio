@@ -1,0 +1,78 @@
+{
+  "environment": "Lighthouse default simulated mobile throttling; local Vite production preview; headless Chrome; single lab run.",
+  "lighthouseVersion": "13.5.0",
+  "categories": {
+    "performance": 95,
+    "accessibility": 100,
+    "best-practices": 100,
+    "seo": 100
+  },
+  "lcpMs": 2721.79485,
+  "cls": 0,
+  "tbtMs": 76,
+  "failedAudits": [
+    {
+      "id": "first-contentful-paint",
+      "title": "First Contentful Paint",
+      "score": 0.95,
+      "displayValue": "1.5 s"
+    },
+    {
+      "id": "largest-contentful-paint",
+      "title": "Largest Contentful Paint",
+      "score": 0.85,
+      "displayValue": "2.7 s"
+    },
+    {
+      "id": "total-blocking-time",
+      "title": "Total Blocking Time",
+      "score": 0.99,
+      "displayValue": "80 ms"
+    },
+    {
+      "id": "max-potential-fid",
+      "title": "Max Potential First Input Delay",
+      "score": 0.91,
+      "displayValue": "130 ms"
+    },
+    {
+      "id": "interactive",
+      "title": "Time to Interactive",
+      "score": 0.97,
+      "displayValue": "2.7 s"
+    },
+    {
+      "id": "unused-javascript",
+      "title": "Reduce unused JavaScript",
+      "score": 0,
+      "displayValue": "Est savings of 57 KiB"
+    },
+    {
+      "id": "bf-cache",
+      "title": "Page prevented back/forward cache restoration",
+      "score": 0,
+      "displayValue": "2 failure reasons"
+    },
+    {
+      "id": "forced-reflow-insight",
+      "title": "Forced reflow",
+      "score": 0
+    },
+    {
+      "id": "lcp-discovery-insight",
+      "title": "LCP request discovery",
+      "score": 0
+    },
+    {
+      "id": "network-dependency-tree-insight",
+      "title": "Network dependency tree",
+      "score": 0
+    },
+    {
+      "id": "render-blocking-insight",
+      "title": "Render-blocking requests",
+      "score": 0,
+      "displayValue": "Est savings of 150 ms"
+    }
+  ]
+}
