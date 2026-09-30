@@ -40,10 +40,12 @@ test("quote prepares a correctly encoded email and clears stale drafts on edits"
   await page.route('**/api/inquiries', route => route.fulfill({ status: 503, json: { error: 'Direct enquiries unavailable. Please email instead.' } }));
   await page.goto("/#quote");
   await page.getByRole("radio", { name: "Redesign", exact: true }).check();
-  await page.locator('#quote').getByLabel("Your name").fill("Asha & Co");
-  await page.getByLabel("Your email").fill("asha@example.com");
+  await page.getByRole("button", { name: "Next", exact: true }).click();
   await page.getByLabel("A little about your idea").fill("A cafe website & menu. Budget to discuss.");
   await page.getByLabel("Your timeline").selectOption("1–3 months");
+  await page.getByRole("button", { name: "Next", exact: true }).click();
+  await page.locator('#quote').getByLabel("Your name").fill("Asha & Co");
+  await page.getByLabel("Your email").fill("asha@example.com");
   await page.getByRole("button", { name: "Send quote request" }).click();
   const draft = page.getByRole("link", { name: "Open email draft" });
   const href = await draft.getAttribute("href");
@@ -54,6 +56,7 @@ test("quote prepares a correctly encoded email and clears stale drafts on edits"
   await page.getByRole("button", { name: "Copy brief" }).click();
   await expect(page.getByRole("status")).toContainText("Brief copied");
   expect(await page.evaluate(() => navigator.clipboard.readText())).toContain("A cafe website & menu.");
+  await page.getByRole("button", { name: "Edit brief" }).click();
   await page.getByLabel("A little about your idea").fill("Changed brief");
   await expect(draft).toHaveCount(0);
 });

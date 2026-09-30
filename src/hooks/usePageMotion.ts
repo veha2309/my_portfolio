@@ -15,24 +15,25 @@ export function usePageMotion(ref: RefObject<HTMLElement | null>, key = "") {
         // Animate from a small offset; content stays visible even if animation initialization fails.
         if (matchMedia("(min-width: 761px)").matches) gsap.from(root.querySelectorAll("[data-intro]"), {
           y: 22,
-          duration: 0.9,
+          duration: 0.65,
           stagger: 0.08,
           ease: "power3.out",
           clearProps: "transform",
         });
+        gsap.from(root.querySelectorAll('.hero-reel-card > div'), { y: 16, duration: 0.65, stagger: 0.09, ease: 'power3.out', clearProps: 'transform' });
         root
           .querySelectorAll<HTMLElement>("[data-reveal]:not(.website-showcase):not(.about-portrait)")
           .forEach((element) => {
             gsap.from(element, {
               y: 28,
-              duration: 0.75,
+              duration: 0.65,
               ease: "power3.out",
               clearProps: "transform",
               scrollTrigger: { trigger: element, start: "top 94%", once: true },
             });
           });
         root.querySelectorAll<HTMLElement>('[data-editorial]').forEach((line, index) => {
-          gsap.from(line, { y: 40, rotation: index % 2 ? 1 : -1, duration: 1.15, ease: 'power3.out', clearProps: 'transform', scrollTrigger: { trigger: line, start: 'top 92%', once: true } });
+          gsap.from(line, { y: 40, rotation: index % 2 ? 1 : -1, duration: 0.7, ease: 'power3.out', clearProps: 'transform', scrollTrigger: { trigger: line, start: 'top 92%', once: true } });
         });
       });
       media.add(
@@ -56,8 +57,8 @@ export function usePageMotion(ref: RefObject<HTMLElement | null>, key = "") {
           root.querySelectorAll<HTMLElement>('.hero-reel-card').forEach((card, index) => {
             gsap.fromTo(card, { y: index === 1 ? 22 : 0 }, { y: index === 1 ? -24 : -10, ease: 'none', scrollTrigger: { trigger: '.hero-reel', start: 'top 75%', end: 'bottom top', scrub: 0.8 } });
           });
-          root.querySelectorAll<HTMLElement>('.project-heading, .project-link > p').forEach(element => {
-            gsap.from(element, { x: 24, duration: 0.9, ease: 'power3.out', clearProps: 'transform', scrollTrigger: { trigger: element, start: 'top 90%', once: true } });
+          root.querySelectorAll<HTMLElement>('.project-link').forEach((card, index) => {
+            gsap.from(card.querySelectorAll('.project-heading, .project-link > p'), { x: index % 2 ? -24 : 24, duration: 0.65, stagger: 0.08, ease: 'power3.out', clearProps: 'transform', scrollTrigger: { trigger: card, start: 'top 85%', once: true } });
           });
           root.querySelectorAll<HTMLElement>('.website-showcase, .about-portrait').forEach(element => {
             gsap.fromTo(element, { y: 25 }, { y: -15, ease: 'none', scrollTrigger: { trigger: element, start: 'top bottom', end: 'bottom top', scrub: 0.8 } });

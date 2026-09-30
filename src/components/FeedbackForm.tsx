@@ -17,9 +17,9 @@ export default function FeedbackForm({ target }: { target?: string }) {
     } catch (error) { setStatus(error instanceof Error ? error.message : 'Could not send feedback. Please try again.'); }
     finally { setBusy(false); }
   }
-  return <section className="feedback-section" id="feedback" aria-labelledby="feedback-title">
+  return <section className={`feedback-section ${target ? "" : "feedback-section--compact"}`} id="feedback" aria-labelledby="feedback-title">
     <div><span className="eyebrow">FOR MY EYES ONLY</span><h2 id="feedback-title">A little feedback.<br /><em>A better next step.</em></h2><p>{target ? `Share your thoughts on ${feedbackTargets.find(item => item.value === target)?.label || 'this project'}.` : 'Rate a project, this portfolio, or your experience working with me.'} Your rating and message are private. They won’t appear on the public website.</p></div>
-    <details className="feedback-details"><summary>Leave private feedback <span aria-hidden="true">＋</span></summary><form className="quote-form" onSubmit={submit}>
+    <details className="feedback-details"><summary>{target ? "Leave private feedback" : "Share private feedback"} <span aria-hidden="true">＋</span></summary><form className="quote-form" onSubmit={submit}>
       <fieldset disabled={busy} className="feedback-fields">
         {!target && <label>Feedback about<select name="target" defaultValue="portfolio">{feedbackTargets.map(item => <option key={item.value} value={item.value}>{item.label}</option>)}</select></label>}
         <fieldset className="rating-options"><legend>Your rating</legend>{[1, 2, 3, 4, 5].map(value => <label key={value}><input type="radio" name="rating" value={value} required aria-label={`${value} ${value === 1 ? 'star' : 'stars'}`} /><span>{value} ★</span></label>)}</fieldset>

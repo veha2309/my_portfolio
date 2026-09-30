@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import Arrow from "../components/Arrow";
 import ProjectCard from "../components/ProjectCard";
@@ -30,6 +30,7 @@ const capabilities = [
 
 export default function Home() {
   const root = useRef<HTMLElement>(null);
+  const [reference, setReference] = useState<{ name: string; request: number } | null>(null);
   usePageMotion(root);
   return (
     <main ref={root} id="main" tabIndex={-1}>
@@ -51,17 +52,16 @@ export default function Home() {
         <div className="hero-foot">
           <div className="hero-actions" data-intro>
             <Link className="button" to="/#work">
-              Explore work
+              View work
               <Arrow />
             </Link>
-            <a className="text-link" href="mailto:448vedantshukla@gmail.com">
-              Let’s talk
+            <a className="text-link" href="#quote">
+              Start a project
               <Arrow />
             </a>
           </div>
           <p data-intro>
-            Websites with character. Products with purpose. I bring design and
-            engineering together to make your next idea feel unmistakably yours.
+            I design and build distinctive websites and thoughtful web &amp; mobile apps.
           </p>
         </div>
         <div className="hero-reel" aria-label="A glimpse of selected work">
@@ -120,7 +120,7 @@ export default function Home() {
         <h2 id="design-note-title"><span data-editorial>Less ordinary.</span><em data-editorial>More considered.</em></h2>
         <div className="design-note-foot"><span className="design-note-symbol" aria-hidden="true">✳</span><p>A clear idea. An unexpected detail. A little movement that feels just right. I build for the moment someone decides to stay.</p></div>
       </section>
-      <WebsiteShowcase />
+      <WebsiteShowcase onReference={name => setReference({ name, request: Date.now() })} />
       <section
         id="capabilities"
         className="capabilities container"
@@ -152,7 +152,7 @@ export default function Home() {
           ))}
         </div>
       </section>
-      <FreelanceInquiry />
+      <FreelanceInquiry reference={reference} />
       <section
         id="about"
         className="about container"

@@ -52,7 +52,7 @@ test("homepage is usable, free of runtime errors, and contains valid project lin
     await expect(
       page.locator(`.project-link[href="/projects/${slug}"]`),
     ).toContainText(title);
-  await page.getByRole("link", { name: "Explore work", exact: true }).click();
+  await page.getByRole("link", { name: "View work", exact: true }).click();
   await expect(page).toHaveURL(/#work$/);
   await page.waitForTimeout(1000);
   const workTop = await page

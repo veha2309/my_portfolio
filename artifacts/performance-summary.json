@@ -2,20 +2,20 @@
   "environment": "Lighthouse default simulated mobile throttling; local Vite production preview; headless Chrome; single lab run.",
   "lighthouseVersion": "13.5.0",
   "categories": {
-    "performance": 95,
+    "performance": 96,
     "accessibility": 100,
     "best-practices": 100,
     "seo": 100
   },
-  "lcpMs": 2721.79485,
+  "lcpMs": 2717.23125,
   "cls": 0,
-  "tbtMs": 76,
+  "tbtMs": 39,
   "failedAudits": [
     {
       "id": "first-contentful-paint",
       "title": "First Contentful Paint",
-      "score": 0.95,
-      "displayValue": "1.5 s"
+      "score": 0.93,
+      "displayValue": "1.7 s"
     },
     {
       "id": "largest-contentful-paint",
@@ -24,15 +24,9 @@
       "displayValue": "2.7 s"
     },
     {
-      "id": "total-blocking-time",
-      "title": "Total Blocking Time",
-      "score": 0.99,
-      "displayValue": "80 ms"
-    },
-    {
       "id": "max-potential-fid",
       "title": "Max Potential First Input Delay",
-      "score": 0.91,
+      "score": 0.9,
       "displayValue": "130 ms"
     },
     {
@@ -59,9 +53,10 @@
       "score": 0
     },
     {
-      "id": "lcp-discovery-insight",
-      "title": "LCP request discovery",
-      "score": 0
+      "id": "image-delivery-insight",
+      "title": "Improve image delivery",
+      "score": 0.5,
+      "displayValue": "Est savings of 13 KiB"
     },
     {
       "id": "network-dependency-tree-insight",

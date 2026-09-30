@@ -93,3 +93,13 @@ The current quote inbox uses Supabase Postgres behind Vercel functions. The Mong
 - Desktop scroll profile: 8 seconds, 1440×1000, unthrottled headless Chrome: p95 frame **17.4 ms**, **0 frames over 50 ms**, **0 long tasks**, no runtime errors. Sample was taken before the final mobile-only entrance simplification and preview-frame fit adjustment.
 - Browser coverage includes 360–1440 px, all five project routes/reloads/Back, mobile menu/focus, reduced motion, website/size switching, quote encoding/copy/edit invalidation, and mobile-first Mahila content.
 - Figma remains limited by the previously reported account tool quota; this iteration was verified locally. Nothing deployed.
+
+## Editorial studio refinement — 2026-09-30
+
+Implemented clearer hero positioning and work/quote actions, alternating desktop project rows, a larger website showcase, editable design-reference handoff, a three-step enquiry wizard, four process stages, discreet general feedback, and coordinated GSAP reveals. Existing APIs and database schemas are unchanged.
+
+Validation: production build and lint passed; 31 browser tests passed, followed by 9 focused wizard/showcase checks after styling changes and 3 link-confirmation checks after the Lighthouse fix. All 14 API/password tests passed. Screenshots inspected for desktop and mobile; existing overflow coverage passed at 360, 390, 768, 1024, and 1440 px.
+
+Final production bundle: initial JavaScript 137.02 kB gzip; CSS 8.88 kB gzip. Lighthouse 13.5, local production preview, headless installed Chrome, default simulated mobile throttling: performance 96, accessibility 100, best practices 100, SEO 100; LCP 2.72 seconds, CLS 0, TBT 39 ms. LCP remains above the 2.5-second target; other requested numerical targets pass. These are lab results, not field measurements. Hero image preloading removed the LCP discovery warning. Scroll profile: p95 frame duration 17.5 ms, zero frames above 50 ms, zero long tasks, no runtime errors.
+
+No deployment or live Supabase configuration performed.

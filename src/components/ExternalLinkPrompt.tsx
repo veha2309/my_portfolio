@@ -50,7 +50,7 @@ export default function ExternalLinkPrompt() {
     <h2 id="external-title">{isEmail ? <>An idea to share?<br /><em>Let’s talk.</em></> : <>A little further.<br /><em>A new window.</em></>}</h2>
     <p id="external-description">{isEmail ? "This will open your default email app to compose a message. Nothing is sent until you send it yourself." : "You’re about to leave this portfolio and visit another website in a new tab."}</p>
     <div className="external-destination"><span>{isEmail ? "EMAIL TO" : "YOUR DESTINATION"}</span><strong>{isEmail ? destination.pathname : destination?.hostname}</strong>{!isEmail && <span>{destination ? `${destination.pathname}${destination.search}${destination.hash}` : ""}</span>}</div>
-    <div className="external-dialog-actions"><button className="button button-secondary" type="button" autoFocus onClick={close}>Stay here</button><a className="button button-primary" href={destination?.href} target={isEmail ? undefined : "_blank"} rel="noopener noreferrer" data-external-confirmed onClick={close}>{isEmail ? "Open email app" : "Continue"} <Arrow /></a></div>
+    <div className="external-dialog-actions"><button className="button button-secondary" type="button" autoFocus onClick={close}>Stay here</button>{destination && <a className="button button-primary" href={destination.href} target={isEmail ? undefined : "_blank"} rel="noopener noreferrer" data-external-confirmed onClick={close}>{isEmail ? "Open email app" : "Continue"} <Arrow /></a>}</div>
     <p className="external-footnote">Your place here stays open.</p>
   </dialog>;
 }

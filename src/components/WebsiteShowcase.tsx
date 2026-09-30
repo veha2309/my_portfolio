@@ -11,7 +11,7 @@ const mobileSections = {
   "signature-cafe": [{ slug: "home", label: "First impression" }, { slug: "menu", label: "Explore the menu" }, { slug: "visit", label: "Plan a visit" }],
 };
 
-export default function WebsiteShowcase() {
+export default function WebsiteShowcase({ onReference }: { onReference: (name: string) => void }) {
   const [selected, setSelected] = useState(0);
   const [device, setDevice] = useState<"desktop" | "mobile">("desktop");
   const site = websites[selected];
@@ -51,6 +51,6 @@ export default function WebsiteShowcase() {
         <div><p>{site.description}</p><div className="showcase-links"><a className="text-link" href={site.url} target="_blank" rel="noreferrer">Explore live site <Arrow /></a><a className="text-link" href={site.github} target="_blank" rel="noreferrer">Source <Arrow /></a></div></div>
       </div>
     </div>
-    <div className="work-end"><a className="text-link" href="#feedback">Leave private feedback <Arrow /></a><a className="text-link" href="#quote">Build something like this <Arrow /></a></div>
+    <div className="work-end"><span>A DISTINCTIVE PRESENCE. ON EVERY SCREEN.</span><a className="text-link" href="#quote" onClick={() => onReference(site.name)}>Build something like this <Arrow /></a></div>
   </section>;
 }

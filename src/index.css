@@ -1772,3 +1772,55 @@ button:disabled { opacity: .55; cursor: not-allowed; }
     color: #444 !important;
   }
 }
+/* Editorial studio refinement */
+@media (min-width: 761px) {
+  .work .project-card:nth-child(even) .project-link { grid-template-columns: minmax(0, 1fr) minmax(0, 1.8fr); }
+  .work .project-card:nth-child(even) .project-art { grid-column: 2; }
+  .work .project-card:nth-child(even) .project-meta,
+  .work .project-card:nth-child(even) .project-heading,
+  .work .project-card:nth-child(even) .project-link > p { grid-column: 1; }
+  .website-stage--desktop { height: auto; padding: 44px 48px 58px; }
+  .website-stage--desktop .website-frame { max-width: 1080px; }
+  .website-stage--desktop img { width: 100%; height: auto; }
+}
+.website-details { padding-block: 40px; }
+.website-switch button { min-height: 52px; }
+.studio-process { margin-top: 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 28px 24px; }
+.studio-process > div { display: flex; gap: 12px; border-top: 1px solid var(--border); padding-top: 18px; }
+.studio-process > div > span { color: var(--accent); font-size: 10px; padding-top: 4px; }
+.studio-process h3 { font-size: 17px; font-weight: 500; }
+.studio-process p { font-size: 12px; line-height: 1.7; margin: 10px 0 0; }
+.quote-wizard { align-self: start; padding: clamp(20px, 3vw, 40px); border: 1px solid var(--border); background: #141611; }
+.quote-progress { list-style: none; margin: 0 0 12px; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.quote-progress li { border-top: 2px solid #454a3e; padding-top: 12px; font-size: 10px; color: var(--muted); line-height: 1.6; }
+.quote-progress li span { display: block; margin-bottom: 5px; }
+.quote-progress li[aria-current] { border-color: var(--accent); color: var(--text); }
+.quote-step-title { font-size: clamp(24px, 2.5vw, 34px); font-weight: 450; line-height: 1.2; }
+.quote-step-fields { display: grid; gap: 22px; min-width: 0; }
+.quote-wizard [hidden] { display: none !important; }
+.quote-summary { padding: 18px; background: #20241c; font-size: 12px; }
+.quote-summary > div { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.quote-summary p { white-space: pre-wrap; overflow-wrap: anywhere; line-height: 1.7; max-height: 160px; overflow: auto; }
+.quote-navigation { display: flex; justify-content: space-between; align-items: center; gap: 24px; }
+.quote-navigation .button { margin-left: auto; }
+.feedback-section--compact { display: block; padding-block: 28px; }
+.feedback-section--compact > div { display: none; }
+.feedback-section--compact .feedback-details { max-width: 640px; margin-inline: auto; }
+.feedback-section--compact .feedback-details::after { content: 'Only Vedant can read your rating and message.'; display: block; margin-top: 12px; color: var(--muted); font-size: 12px; }
+.hero-reel-card:focus-visible img { transform: scale(1.045); }
+.project-link:focus-visible .project-open { transform: rotate(45deg); background: #d1d7c4; }
+.button:focus-visible { background: var(--accent); transform: translateY(-2px); }
+.text-link:focus-visible .arrow { transform: translate(3px, -3px); }
+@media (max-width: 760px) {
+  .website-details { padding-block: 24px; }
+  .quote-wizard { padding: 22px 18px; }
+  .studio-process { gap: 24px 16px; }
+  .quote-progress { gap: 8px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-reel-card:focus-visible img, .project-link:focus-visible .project-open, .button:focus-visible, .text-link:focus-visible .arrow { transform: none; }
+}
+.quote-step-fields > label { font-size: 12px; line-height: 1.6; }
+.quote-step-fields input { display: block; width: 100%; margin-top: 10px; border: 1px solid var(--border); background: var(--surface); border-radius: 0; padding: 15px; font: inherit; font-size: 14px; color: var(--text); }
+.quote-wizard button.text-link { background: transparent; color: var(--text); border: 0; border-bottom: 1px solid var(--border); font: inherit; font-size: 12px; cursor: pointer; padding: 0; }
+.quote-wizard button.text-link:hover, .quote-wizard button.text-link:focus-visible { color: var(--accent); border-color: var(--accent); }

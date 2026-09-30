@@ -4,8 +4,10 @@ test('direct enquiry confirms server success', async ({ page }) => {
   let payload: Record<string, string> = {};
   await page.route('**/api/inquiries', async route => { payload = route.request().postDataJSON(); await route.fulfill({ status: 201, json: { id: 'test-inquiry' } }); });
   await page.goto('/#quote');
-  await page.getByLabel('Your email').fill('client@example.com');
+  await page.getByRole('button', { name: 'Next', exact: true }).click();
   await page.getByLabel('A little about your idea').fill('A new cafe website');
+  await page.getByRole('button', { name: 'Next', exact: true }).click();
+  await page.getByLabel('Your email').fill('client@example.com');
   await page.getByRole('button', { name: 'Send quote request' }).click();
   await expect(page.getByRole('status')).toContainText('Your enquiry has been received');
   expect(payload.email).toBe('client@example.com');
@@ -17,8 +19,10 @@ test('direct enquiry confirms server success', async ({ page }) => {
 test('a missing API never claims success and preserves the brief', async ({ page }) => {
   await page.route('**/api/inquiries', route => route.fulfill({ contentType: 'text/html', body: '<html>Static preview</html>' }));
   await page.goto('/#quote');
-  await page.getByLabel('Your email').fill('client@example.com');
+  await page.getByRole('button', { name: 'Next', exact: true }).click();
   await page.getByLabel('A little about your idea').fill('Please keep this brief');
+  await page.getByRole('button', { name: 'Next', exact: true }).click();
+  await page.getByLabel('Your email').fill('client@example.com');
   await page.getByRole('button', { name: 'Send quote request' }).click();
   await expect(page.getByRole('status')).toContainText('unavailable');
   await expect(page.getByLabel('A little about your idea')).toHaveValue('Please keep this brief');
