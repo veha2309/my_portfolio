@@ -7,9 +7,9 @@
     "best-practices": 100,
     "seo": 100
   },
-  "lcpMs": 2797.7883,
+  "lcpMs": 2795.05125,
   "cls": 0,
-  "tbtMs": 82,
+  "tbtMs": 37.5,
   "failedAudits": [
     {
       "id": "first-contentful-paint",
@@ -24,15 +24,9 @@
       "displayValue": "2.8 s"
     },
     {
-      "id": "total-blocking-time",
-      "title": "Total Blocking Time",
-      "score": 0.99,
-      "displayValue": "80 ms"
-    },
-    {
       "id": "max-potential-fid",
       "title": "Max Potential First Input Delay",
-      "score": 0.89,
+      "score": 0.91,
       "displayValue": "130 ms"
     },
     {
@@ -45,7 +39,7 @@
       "id": "unused-javascript",
       "title": "Reduce unused JavaScript",
       "score": 0,
-      "displayValue": "Est savings of 57 KiB"
+      "displayValue": "Est savings of 58 KiB"
     },
     {
       "id": "bf-cache",
@@ -57,12 +51,6 @@
       "id": "forced-reflow-insight",
       "title": "Forced reflow",
       "score": 0
-    },
-    {
-      "id": "image-delivery-insight",
-      "title": "Improve image delivery",
-      "score": 0.5,
-      "displayValue": "Est savings of 13 KiB"
     },
     {
       "id": "network-dependency-tree-insight",

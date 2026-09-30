@@ -1,8 +1,8 @@
 {
   "environment": "Headless Chrome, desktop 1440x1000, no CPU throttling, 8-second scripted page scroll; lab evidence, not a physical-device guarantee.",
-  "durationMs": 8005.699999988079,
-  "frameCount": 479,
-  "frameP95Ms": 17.300000000000182,
+  "durationMs": 8006.199999988079,
+  "frameCount": 478,
+  "frameP95Ms": 17.199999999999818,
   "framesOver50Ms": 0,
   "longTasks": [],
   "devicePixelRatio": 1,

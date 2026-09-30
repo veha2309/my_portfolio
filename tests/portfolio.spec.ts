@@ -43,7 +43,7 @@ test("homepage is usable, free of runtime errors, and contains valid project lin
   page.on("pageerror", (error) => errors.push(error.message));
   await page.goto("/");
   await expect(page.getByRole("heading", { level: 1 })).toContainText(
-    "Digital craft.",
+    "GREAT",
   );
   await expect(page).toHaveTitle("Vedant Shukla — Software Engineer & Maker");
   await expect(page.locator("canvas")).toHaveCount(0);
@@ -117,7 +117,7 @@ test("browser Back restores portfolio scroll position", async ({ page }) => {
   );
   await page.goBack();
   await expect(page.getByRole("heading", { level: 1 })).toContainText(
-    "Digital craft.",
+    "GREAT",
   );
   await page.waitForTimeout(350);
   expect(Math.abs((await page.evaluate(() => scrollY)) - before)).toBeLessThan(
@@ -207,7 +207,7 @@ test("reduced motion shows content immediately, including after preference chang
   await page.goto("/");
   expect(
     await page
-      .locator(".hero-line--first")
+      .locator("#hero-title")
       .evaluate((el) => getComputedStyle(el).transform),
   ).toBe("none");
   await page.locator("#work").scrollIntoViewIfNeeded();
@@ -221,7 +221,7 @@ test("reduced motion shows content immediately, including after preference chang
   await page.emulateMedia({ reducedMotion: "reduce" });
   expect(
     await page
-      .locator(".hero-line--serif")
+      .locator(".hero-copy")
       .evaluate((el) => getComputedStyle(el).transform),
   ).toBe("none");
 });
