@@ -103,3 +103,15 @@ Validation: production build and lint passed; 31 browser tests passed, followed 
 Final production bundle: initial JavaScript 137.02 kB gzip; CSS 8.88 kB gzip. Lighthouse 13.5, local production preview, headless installed Chrome, default simulated mobile throttling: performance 96, accessibility 100, best practices 100, SEO 100; LCP 2.72 seconds, CLS 0, TBT 39 ms. LCP remains above the 2.5-second target; other requested numerical targets pass. These are lab results, not field measurements. Hero image preloading removed the LCP discovery warning. Scroll profile: p95 frame duration 17.5 ms, zero frames above 50 ms, zero long tasks, no runtime errors.
 
 No deployment or live Supabase configuration performed.
+
+## Reference-inspired opening — 2026-09-30
+
+Studied turismo.gov.st/fr and perappelgren.de visually, including their scroll transitions. Replaced repeated project pins with one desktop opening sequence: seven original portfolio visuals surround the central headline and move outward with shallow perspective on scroll. Project rows use continuous scale/text reveals. Mobile uses a centered headline and staggered two-image layout; reduced motion keeps all content in static document flow.
+
+Production build and lint pass. All 17 route/layout/keyboard/reduced-motion checks pass, including overflow at 360–1440 px. Initial JS is 137.22 kB gzip. Scroll profile before the final spacing correction: p95 17.3 ms, zero frames over 50 ms, zero long tasks, no runtime errors. Lighthouse was not rerun for this iteration. Latest visual: artifacts/reference-opening.png. No deployment.
+
+## Approved gallery / immersive-scenes blend — 2026-09-30
+
+Changed the opening to warm ivory with a central name and compact motto, surrounded by larger portfolio captures/illustrations. Engineering work now uses full-width scenes with image depth movement, readable title overlays and continuous transitions; mobile shows uncropped visuals. Project labels, normal Mahila Mitr ordering, contact flows and case routes remain available.
+
+Build and lint passed. All 17 portfolio checks passed before the final typography-only correction. Desktop/mobile screenshots reviewed and final opening saved in artifacts/blend-opening.png. Scroll profile: p95 17.3 ms, zero frames above 50 ms, no long tasks or runtime errors. Final JS 137.23 kB gzip. Lighthouse simulated mobile local lab: performance 95, accessibility/best practices/SEO 100, LCP 2.80 s, CLS 0, TBT 82 ms. LCP remains above the 2.5 s target. No deployment.

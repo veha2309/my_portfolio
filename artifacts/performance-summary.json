@@ -2,14 +2,14 @@
   "environment": "Lighthouse default simulated mobile throttling; local Vite production preview; headless Chrome; single lab run.",
   "lighthouseVersion": "13.5.0",
   "categories": {
-    "performance": 96,
+    "performance": 95,
     "accessibility": 100,
     "best-practices": 100,
     "seo": 100
   },
-  "lcpMs": 2717.23125,
+  "lcpMs": 2797.7883,
   "cls": 0,
-  "tbtMs": 39,
+  "tbtMs": 82,
   "failedAudits": [
     {
       "id": "first-contentful-paint",
@@ -20,20 +20,26 @@
     {
       "id": "largest-contentful-paint",
       "title": "Largest Contentful Paint",
-      "score": 0.85,
-      "displayValue": "2.7 s"
+      "score": 0.83,
+      "displayValue": "2.8 s"
+    },
+    {
+      "id": "total-blocking-time",
+      "title": "Total Blocking Time",
+      "score": 0.99,
+      "displayValue": "80 ms"
     },
     {
       "id": "max-potential-fid",
       "title": "Max Potential First Input Delay",
-      "score": 0.9,
+      "score": 0.89,
       "displayValue": "130 ms"
     },
     {
       "id": "interactive",
       "title": "Time to Interactive",
       "score": 0.97,
-      "displayValue": "2.7 s"
+      "displayValue": "2.8 s"
     },
     {
       "id": "unused-javascript",

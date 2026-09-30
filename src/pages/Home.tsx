@@ -42,12 +42,13 @@ export default function Home() {
           </span>
         </div>
         <h1 id="hero-title">
-          <span className="hero-line hero-line--first" data-intro>
+          <span className="hero-name">Vedant Shukla.</span>
+          <span className="hero-motto"><span className="hero-line hero-line--first" data-intro>
             Digital craft.
           </span>
           <span className="hero-line hero-line--serif" data-intro>
             <em>Human feeling.</em>
-          </span>
+          </span></span>
         </h1>
         <div className="hero-foot">
           <div className="hero-actions" data-intro>
@@ -68,6 +69,7 @@ export default function Home() {
           <a className="hero-reel-card" href="#websites"><div><img src="/images/websites/malamen-preview.webp" width={640} height={444} alt="Malamen kitchen and bar website concept" decoding="async" fetchPriority="high" /></div><span><span>01 / MALAMEN</span><span>HOSPITALITY ↗</span></span></a>
           <a className="hero-reel-card" href="#websites"><div><img src="/images/websites/signature-cafe-preview.webp" width={640} height={444} alt="Signature Cafe rooftop website concept" decoding="async" fetchPriority="high" /></div><span><span>02 / SIGNATURE CAFE</span><span>WEB DESIGN ↗</span></span></a>
           <Link className="hero-reel-card" to="/projects/financeflow"><div><img src="/images/projects/financeflow.svg" width={1000} height={700} alt="FinanceFlow product illustration" decoding="async" /></div><span><span>03 / FINANCEFLOW</span><span>PRODUCT ↗</span></span></Link>
+          {projects.slice(1).map(project => <Link key={project.slug} className="hero-reel-card hero-reel-card--extra" to={`/projects/${project.slug}`}><div><img src={project.image} width={1000} height={700} alt={project.imageAlt} decoding="async" /></div><span><span>{project.title}</span><span>EXPLORE ↗</span></span></Link>)}
         </div>
         <div className="hero-bottom">
           <span className="availability">
@@ -116,7 +118,8 @@ export default function Home() {
         </div>
       </section>
       <section className="design-note container" aria-labelledby="design-note-title">
-        <span className="eyebrow">THE APPROACH</span>
+        <span className="eyebrow">THE APPROACH / FROM IDEA TO EXPERIENCE</span>
+        <div className="story-progress" aria-hidden="true"><span /></div>
         <h2 id="design-note-title"><span data-editorial>Less ordinary.</span><em data-editorial>More considered.</em></h2>
         <div className="design-note-foot"><span className="design-note-symbol" aria-hidden="true">✳</span><p>A clear idea. An unexpected detail. A little movement that feels just right. I build for the moment someone decides to stay.</p></div>
       </section>
