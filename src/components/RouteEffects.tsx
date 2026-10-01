@@ -67,13 +67,13 @@ export default function RouteEffects() {
     );
     const home = location.pathname === "/";
     const title = project
-      ? `${project.title} — Vedant Shukla`
+      ? `${project.title} — Vedant Digital Studio`
       : home
-        ? "Vedant Shukla — Software Engineer & Maker"
-        : location.pathname === "/admin" ? "Project enquiries — Vedant Shukla" : "Page not found — Vedant Shukla";
+        ? "Vedant Digital Studio — Websites, Web & Mobile Apps"
+        : location.pathname === "/admin" ? "Project enquiries — Vedant Digital Studio" : "Page not found — Vedant Digital Studio";
     const description =
       project?.description ??
-      "Thoughtful code. Remarkable experiences. Vedant Shukla is a software engineer building considered web and mobile products in New Delhi, India.";
+      "Vedant Digital Studio is an independent design and engineering studio creating distinctive websites and thoughtful web and mobile applications.";
     document.title = title;
     const meta = (key: string, value: string) => {
       const attribute = key.startsWith("og:") ? "property" : "name";

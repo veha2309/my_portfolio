@@ -1,3 +1,15 @@
+# Vedant Digital Studio
+
+Independent website, web application and mobile design & engineering studio by Vedant Shukla.
+
+Repository: https://github.com/veha2309/vedant-digital-studio
+
+The separate frontend-only personal portfolio is https://github.com/veha2309/vedant-portfolio, deployed at https://vedant-portfolio-seven-orcin.vercel.app. Its local checkout is `personal-portfolio/`, excluded from this repository.
+
+Studio rebranding is verified locally and has not been deployed. Existing Vercel and Supabase configuration remain unchanged.
+
+---
+
 # Vedant Shukla — Cinematic Developer Portfolio
 
 An interactive portfolio built as two connected experiences: a restrained editorial interface and an optional futuristic Game Mode. The site presents selected product work through cinematic motion, spatial project exploration, responsive layouts, and performance-aware interaction design.

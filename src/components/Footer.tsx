@@ -8,7 +8,7 @@ export default function Footer() {
         <span className="eyebrow">04 / START A CONVERSATION</span>
         <span className="availability">
           <i />
-          Open to opportunities & collaborations
+          Independent design & engineering
         </span>
       </div>
       <a className="contact-title" href={`mailto:${contact.email}`}>
@@ -27,7 +27,7 @@ export default function Footer() {
         </p>
       </div>
       <div className="footer-bottom">
-        <span>© {new Date().getFullYear()} Vedant Shukla</span>
+        <span>© {new Date().getFullYear()} Vedant Digital Studio</span>
         <span className="footer-note">
           Thoughtfully built. Always evolving.
         </span>

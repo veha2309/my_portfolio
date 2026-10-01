@@ -55,6 +55,7 @@ export default function NavBar() {
   }, [open]);
 
   const links = [
+    ["Services", "/#capabilities"],
     ["Work", "/#work"],
     ["Web designs", "/#websites"],
     ["About", "/#about"],
@@ -66,12 +67,12 @@ export default function NavBar() {
         <Link
           className="wordmark"
           to="/"
-          aria-label="Vedant Shukla — home"
+          aria-label="Vedant Digital Studio — home"
           onClick={() => setOpen(false)}
         >
           Vedant<span>.</span>
         </Link>
-        <span className="nav-caption">ENGINEER & MAKER</span>
+        <span className="nav-caption">DIGITAL STUDIO</span>
         <nav className="desktop-nav" aria-label="Main navigation">
           {links.map(([label, to]) => (
             <Link

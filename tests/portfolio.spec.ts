@@ -45,7 +45,7 @@ test("homepage is usable, free of runtime errors, and contains valid project lin
   await expect(page.getByRole("heading", { level: 1 })).toContainText(
     "GREAT",
   );
-  await expect(page).toHaveTitle("Vedant Shukla — Software Engineer & Maker");
+  await expect(page).toHaveTitle("Vedant Digital Studio — Websites, Web & Mobile Apps");
   await expect(page.locator("canvas")).toHaveCount(0);
   await expect(page.locator(".project-card")).toHaveCount(5);
   for (const [slug, title] of cases)
@@ -72,7 +72,7 @@ for (const [slug, title] of cases) {
   }) => {
     await page.goto(`/projects/${slug}`);
     await expect(page.getByRole("heading", { level: 1 })).toHaveText(title);
-    await expect(page).toHaveTitle(`${title} — Vedant Shukla`);
+    await expect(page).toHaveTitle(`${title} — Vedant Digital Studio`);
     await expect(page.locator(".decision")).toHaveCount(3);
     if (slug === "vision-assistant") {
       await expect(
@@ -170,7 +170,7 @@ test("mobile menu supports focus containment, Escape, links, and breakpoint chan
   await expect(
     page
       .getByRole("navigation", { name: "Mobile navigation" })
-      .getByRole("link", { name: /Work/ }),
+      .getByRole("link", { name: /Services/ }),
   ).toBeFocused();
   await page.keyboard.press("Shift+Tab");
   await expect(page.getByRole("button", { name: "Close menu" })).toBeFocused();
@@ -234,7 +234,7 @@ test("unknown paths and unknown projects have a useful recovery path", async ({
     await expect(page.getByRole("heading", { level: 1 })).toContainText(
       "This page",
     );
-    await expect(page).toHaveTitle("Page not found — Vedant Shukla");
+    await expect(page).toHaveTitle("Page not found — Vedant Digital Studio");
     await expect(page.locator('meta[name="robots"]')).toHaveAttribute(
       "content",
       "noindex, follow",

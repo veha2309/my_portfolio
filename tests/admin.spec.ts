@@ -41,7 +41,7 @@ test('admin login, inbox status change, reply and logout', async ({ page }) => {
   await page.route('**/api/inquiries?*', route => route.fulfill({ json: { total: 1, items: [{ _id: 'a'.repeat(24), name: 'Asha', email: 'asha@example.com', service: 'Website', timeline: '1–3 months', message: 'Build a cafe site', status, createdAt: '2026-09-29T10:00:00Z' }] } }));
   await page.route('**/api/inquiries', route => { status = route.request().postDataJSON().status; return route.fulfill({ json: { item: { _id: 'a'.repeat(24), name: 'Asha', email: 'asha@example.com', service: 'Website', timeline: '1–3 months', message: 'Build a cafe site', status, createdAt: '2026-09-29T10:00:00Z' } } }); });
   await page.goto('/admin');
-  await expect(page).toHaveTitle('Project enquiries — Vedant Shukla');
+  await expect(page).toHaveTitle('Project enquiries — Vedant Digital Studio');
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex, follow');
   await page.getByLabel('Admin password').fill('test-password');
   await page.getByRole('button', { name: 'Sign in', exact: true }).click();

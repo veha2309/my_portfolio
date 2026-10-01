@@ -33,3 +33,5 @@ artifacts/*lighthouse.json
 artifacts/*lighthouse.html
 artifacts/*trace.json
 .env
+# Independent personal portfolio repository
+personal-portfolio/

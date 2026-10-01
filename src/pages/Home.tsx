@@ -35,7 +35,7 @@ export default function Home() {
   return (
     <main ref={root} id="main" tabIndex={-1}>
       <section className="hero studio-hero" id="top" aria-labelledby="hero-title">
-        <div className="hero-kicker"><span className="eyebrow">VEDANT SHUKLA / DESIGN & ENGINEERING</span><span className="hero-location">NEW DELHI, INDIA</span></div>
+        <div className="hero-kicker"><span className="eyebrow">VEDANT DIGITAL STUDIO / INDEPENDENT DESIGN & ENGINEERING</span><span className="hero-location">NEW DELHI, INDIA</span></div>
         <div className="hero-story">
           <div className="hero-copy">
             <p className="eyebrow" data-intro>GOOD IDEAS DESERVE</p>
@@ -49,8 +49,40 @@ export default function Home() {
             <a className="hero-reel-card scene-plate scene-plate--front" href="#websites"><div><img src="/images/websites/malamen-preview.webp" width={640} height={444} alt="Malamen kitchen and bar website concept" decoding="async" fetchPriority="high" /></div><span>MALAMEN / WEB DESIGN ↗</span></a>
           </div>
         </div>
-        <div className="hero-bottom"><span className="availability"><i />Open to opportunities & collaborations</span><a href="#work">SCROLL TO DISCOVER <span>↓</span></a></div>
+        <div className="hero-bottom"><span className="availability"><i />Websites · Web apps · Mobile experiences</span><a href="#work">SCROLL TO DISCOVER <span>↓</span></a></div>
       </section>
+      <section
+        id="capabilities"
+        className="capabilities container"
+        aria-labelledby="capabilities-title"
+      >
+        <div className="capabilities-intro" data-reveal>
+          <span className="eyebrow">WHAT I BRING TO THE TABLE</span>
+          <h2 id="capabilities-title">
+            From a good idea
+            <br />
+            to a <em>great product.</em>
+          </h2>
+          <p>
+            Bringing design sensitivity and engineering discipline to the same
+            table.
+          </p>
+        </div>
+        <div className="capabilities-list">
+          {capabilities.map((item, index) => (
+            <article className="capability" key={item.title} data-reveal>
+              <span className="capability-index">0{index + 1}</span>
+              <div>
+                <h3>{item.title}</h3>
+                <p>{item.text}</p>
+                <span className="capability-tags">{item.tags}</span>
+              </div>
+              <Arrow />
+            </article>
+          ))}
+        </div>
+      </section>
+      <WebsiteShowcase onReference={name => setReference({ name, request: Date.now() })} />
       <section
         id="work"
         className="work container"
@@ -58,7 +90,7 @@ export default function Home() {
       >
         <div className="section-heading" data-reveal>
           <div>
-            <span className="eyebrow">01 / SELECTED PROJECTS</span>
+            <span className="eyebrow">02 / ENGINEERING CASE STUDIES</span>
             <h2 id="work-title">
               Ideas made <em>real.</em>
             </h2>
@@ -92,38 +124,6 @@ export default function Home() {
         <div className="story-progress" aria-hidden="true"><span /></div>
         <h2 id="design-note-title"><span data-editorial>Less ordinary.</span><em data-editorial>More considered.</em></h2>
         <div className="design-note-foot"><span className="design-note-symbol" aria-hidden="true">✳</span><p>A clear idea. An unexpected detail. A little movement that feels just right. I build for the moment someone decides to stay.</p></div>
-      </section>
-      <WebsiteShowcase onReference={name => setReference({ name, request: Date.now() })} />
-      <section
-        id="capabilities"
-        className="capabilities container"
-        aria-labelledby="capabilities-title"
-      >
-        <div className="capabilities-intro" data-reveal>
-          <span className="eyebrow">WHAT I BRING TO THE TABLE</span>
-          <h2 id="capabilities-title">
-            From a good idea
-            <br />
-            to a <em>great product.</em>
-          </h2>
-          <p>
-            Bringing design sensitivity and engineering discipline to the same
-            table.
-          </p>
-        </div>
-        <div className="capabilities-list">
-          {capabilities.map((item, index) => (
-            <article className="capability" key={item.title} data-reveal>
-              <span className="capability-index">0{index + 1}</span>
-              <div>
-                <h3>{item.title}</h3>
-                <p>{item.text}</p>
-                <span className="capability-tags">{item.tags}</span>
-              </div>
-              <Arrow />
-            </article>
-          ))}
-        </div>
       </section>
       <FreelanceInquiry reference={reference} />
       <section
