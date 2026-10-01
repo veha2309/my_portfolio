@@ -55,7 +55,7 @@ h2 { letter-spacing: -.055em; }
 .studio-hero .hero-reel-card { position: absolute; display: block; width: 88%; left: 6%; padding: 8px; background: #f9f6ef; box-shadow: 0 16px 38px #202b2420; border: 1px solid #d6d4c9; border-radius: 5px; }
 .studio-hero .hero-reel-card > div { aspect-ratio: 1.6; overflow: hidden; border-radius: 2px; }
 .studio-hero .hero-reel-card img { width: 100%; height: 100%; object-fit: cover; transition: scale .6s; }
-.studio-hero .hero-reel-card:hover img { scale: 1.025; }
+.studio-hero .hero-reel-card:hover img, .studio-hero .hero-reel-card:focus-visible img { transform: none; scale: 1.025; }
 .studio-hero .hero-reel-card > span { display: block; color: var(--ink); padding: 11px 4px 4px; margin: 0; font-size: 8px; letter-spacing: .12em; }
 .studio-hero .scene-plate--back { top: 20px; transform: translateX(-24px) rotate(-10deg) scale(.9); }
 .studio-hero .scene-plate--middle { top: 92px; transform: translateX(34px) rotate(8deg) scale(.94); }
@@ -248,7 +248,7 @@ h2 { letter-spacing: -.055em; }
 .studio-hero .button { background: #f0b18c; color: #142019; border-color: #f0b18c; }
 .studio-hero .button:hover, .studio-hero .button:focus-visible { background: #f8dbc4; border-color: #f8dbc4; }
 .studio-hero .hero-reel { height: 540px; perspective: 1100px; }
-.reel-entrance, .reel-depth { position: absolute; inset: 0; transform-style: preserve-3d; }
+.reel-entrance, .reel-depth { position: absolute; inset: 0; }
 .reel-sculpture { position: absolute; inset: -20px -10px 0; pointer-events: none; }
 .sculpture-core { position: absolute; width: 90%; aspect-ratio: 1; top: 3%; left: 4%; border-radius: 50%; background: radial-gradient(circle at 28% 23%, #f5d9b9 0, #cba378 12%, #8e9564 28%, #4f6445 43%, #203b2d 64%, #10221a 80%); box-shadow: inset -18px -20px 45px #06110b80, inset 10px 10px 30px #ffddbf1a, 0 0 100px #abb07d15; }
 .sculpture-core::after { content: ''; position: absolute; inset: 0; border-radius: 50%; background: repeating-linear-gradient(22deg, transparent 0 11px, #0f261417 12px, transparent 13px); }
@@ -260,9 +260,9 @@ h2 { letter-spacing: -.055em; }
 .studio-hero .hero-reel-card { width: 84%; left: 8%; background: #19261f; border-color: #89937955; padding: 7px; box-shadow: 0 22px 48px #0006; border-radius: 8px; backface-visibility: hidden; }
 .studio-hero .hero-reel-card > div { border-radius: 4px; }
 .studio-hero .hero-reel-card > span { color: #e3e4d1; padding: 13px 6px 7px; font-size: 8px; }
-.studio-hero .scene-plate--back { top: 26px; transform: translateX(-32px) rotate(-12deg) scale(.88); }
-.studio-hero .scene-plate--middle { top: 120px; transform: translateX(48px) rotate(9deg) scale(.94); }
-.studio-hero .scene-plate--front { top: 196px; transform: translateX(-18px) rotate(-6deg); }
+.studio-hero .scene-plate--back { z-index: 1; top: 26px; transform: translateX(-32px) rotate(-12deg) scale(.88); }
+.studio-hero .scene-plate--middle { z-index: 2; top: 120px; transform: translateX(48px) rotate(9deg) scale(.94); }
+.studio-hero .scene-plate--front { z-index: 3; top: 196px; transform: translateX(-18px) rotate(-6deg); }
 .craft-seal { background: #f0b18c; color: #142019; right: -12px; bottom: -2px; width: 100px; height: 100px; box-shadow: 0 10px 30px #0003; }
 .craft-seal b { font-size: 42px; }
 .reel-index { position: absolute; bottom: -32px; left: 15px; font-size: 8px; letter-spacing: .12em; color: #b9c0b2; display: flex; gap: 22px; }
@@ -312,7 +312,6 @@ h2 { letter-spacing: -.055em; }
   .studio-hero .hero-reel-card { translate: 0 0; animation: studio-float 6s ease-in-out infinite; animation-play-state: paused; }
   .studio-hero[data-motion-active='true'] .hero-reel-card { animation-play-state: running; }
   .studio-hero .reel-depth:hover .hero-reel-card, .studio-hero .reel-depth:focus-within .hero-reel-card { animation-play-state: paused; }
-  .studio-hero .scene-plate:hover { z-index: 5; }
   .studio-hero .scene-plate--middle { animation-delay: -2s; }
   .studio-hero .scene-plate--back { animation-delay: -4s; }
   @keyframes studio-float { 0%, 100% { translate: 0 0; } 50% { translate: 0 -10px; } }

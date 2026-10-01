@@ -67,11 +67,13 @@ export function usePageMotion(ref: RefObject<HTMLElement | null>, key = '') {
         const cleanups: (() => void)[] = [];
         root.querySelectorAll<HTMLElement>('[data-depth]').forEach(element => {
           const isHero = element.classList.contains('reel-depth');
+          // Measure and listen on a surface that does not tilt under the pointer.
+          const surface = isHero ? element.closest<HTMLElement>('.hero-reel') ?? element : element;
           const rotateX = gsap.quickTo(element, 'rotationX', { duration: .7, ease: 'power3.out' });
           const rotateY = gsap.quickTo(element, 'rotationY', { duration: .7, ease: 'power3.out' });
           gsap.set(element, { transformPerspective: 1100 });
           let bounds: DOMRect | null = null;
-          const enter = () => { bounds = element.getBoundingClientRect(); };
+          const enter = () => { bounds = surface.getBoundingClientRect(); };
           const move = (event: PointerEvent) => {
             if (!bounds) return;
             const x = Math.max(-.5, Math.min(.5, (event.clientX - bounds.left) / bounds.width - .5));
@@ -80,14 +82,14 @@ export function usePageMotion(ref: RefObject<HTMLElement | null>, key = '') {
             rotateY(x * (isHero ? 18 : 9));
           };
           const reset = () => { bounds = null; rotateX(0); rotateY(0); };
-          element.addEventListener('pointerenter', enter);
-          element.addEventListener('pointermove', move);
-          element.addEventListener('pointerleave', reset);
+          surface.addEventListener('pointerenter', enter);
+          surface.addEventListener('pointermove', move);
+          surface.addEventListener('pointerleave', reset);
           element.addEventListener('focusout', reset);
           cleanups.push(() => {
-            element.removeEventListener('pointerenter', enter);
-            element.removeEventListener('pointermove', move);
-            element.removeEventListener('pointerleave', reset);
+            surface.removeEventListener('pointerenter', enter);
+            surface.removeEventListener('pointermove', move);
+            surface.removeEventListener('pointerleave', reset);
             element.removeEventListener('focusout', reset);
           });
         });
