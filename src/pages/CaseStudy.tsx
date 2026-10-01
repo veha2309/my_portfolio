@@ -16,7 +16,7 @@ export default function CaseStudy() {
   return (
     <main ref={root} id="main" tabIndex={-1} className="case-study container">
       <div id="top" />
-      <Link className="back-link" to="/#work">
+      <Link className="back-link" to="/work">
         <span>←</span> ALL WORK
       </Link>
       <header className="case-header">

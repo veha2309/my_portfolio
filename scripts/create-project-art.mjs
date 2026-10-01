@@ -256,7 +256,5 @@ for (const [slug, title, bg, content] of [
 ])
   writeFileSync(new URL(`${slug}.svg`, out), shell(title, bg, content));
 
-writeFileSync(
-  new URL("../public/social-card.svg", import.meta.url),
-  `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">${rect(0, 0, 1200, 630, "#0b0c0b")}${text(70, 90, "vedant.", 34, "#eeeae2")}${text(70, 181, "SOFTWARE ENGINEER / NEW DELHI", 13, "#c2ae88", 'letter-spacing="3"')}${text(70, 297, "Thoughtful code.", 82, "#eeeae2")}${text(165, 401, "Remarkable experiences.", 80, "#c2ae88", 'font-family="Georgia,serif" font-style="italic"')}${line(70, 507, 1130, 507, "#30332e")}${text(70, 554, "WEB &amp; MOBILE ENGINEERING", 13, "#a6a69b", 'letter-spacing="2"')}</svg>`,
-);
+// The studio share card is authored separately in public/social-card.svg.
+// Regenerating product illustrations must preserve that brand asset.

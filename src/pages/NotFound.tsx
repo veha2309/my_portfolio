@@ -12,11 +12,11 @@ export default function NotFound() {
         has <em>moved on.</em>
       </h1>
       <p>
-        There’s still plenty to explore. Head back to the portfolio to find my
-        work and get in touch.
+        There’s still plenty to explore. Head back to the studio to discover
+        the services, explore the work, and start a conversation.
       </p>
       <Link className="button" to="/">
-        Back to the portfolio
+        Back to the studio
         <Arrow />
       </Link>
     </main>

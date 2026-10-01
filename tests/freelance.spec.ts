@@ -10,12 +10,12 @@ test("Mahila Mitr leads with mobile and separates the supporting admin panel", a
   await expect(page.locator(".companion-section img")).toHaveAttribute("src", /mahila-mitr-desktop.webp/);
 });
 
-test("Mahila Mitr is a regular project and web designs have their own section", async ({ page }) => {
+test("StockPulse and Vision Assistant are featured separately from website designs", async ({ page }) => {
   await page.goto("/");
-  await expect(page.locator(".project-card").last()).toContainText("Mahila Mitr");
-  expect(await page.locator(".project-card--rose").evaluate(el => getComputedStyle(el).gridColumn)).toBe("auto");
+  await expect(page.locator(".project-card").first()).toContainText("StockPulse");
+  await expect(page.locator(".project-card").last()).toContainText("Vision Assistant");
   await expect(page.locator("#work")).not.toContainText("Malamen");
-  await expect(page.locator("#websites h2")).toHaveText("Web designs with character.");
+  await expect(page.locator("#websites h2")).toContainText("Its own atmosphere.");
 });
 
 test("website showcase switches real captures and keeps source links in sync", async ({ page }) => {

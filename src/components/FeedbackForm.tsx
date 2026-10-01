@@ -18,7 +18,7 @@ export default function FeedbackForm({ target }: { target?: string }) {
     finally { setBusy(false); }
   }
   return <section className={`feedback-section ${target ? "" : "feedback-section--compact"}`} id="feedback" aria-labelledby="feedback-title">
-    <div><span className="eyebrow">FOR MY EYES ONLY</span><h2 id="feedback-title">A little feedback.<br /><em>A better next step.</em></h2><p>{target ? `Share your thoughts on ${feedbackTargets.find(item => item.value === target)?.label || 'this project'}.` : 'Rate a project, this portfolio, or your experience working with me.'} Your rating and message are private. They won’t appear on the public website.</p></div>
+    <div><span className="eyebrow">PRIVATE FEEDBACK</span><h2 id="feedback-title">A little feedback.<br /><em>A better next step.</em></h2><p>{target ? `Share your thoughts on ${feedbackTargets.find(item => item.value === target)?.label || 'this project'}.` : 'Share feedback about the studio, a project, or your experience working with Vedant.'} Your rating and message are private. They won’t appear on the public website.</p></div>
     <details className="feedback-details"><summary>{target ? "Leave private feedback" : "Share private feedback"} <span aria-hidden="true">＋</span></summary><form className="quote-form" onSubmit={submit}>
       <fieldset disabled={busy} className="feedback-fields">
         {!target && <label>Feedback about<select name="target" defaultValue="portfolio">{feedbackTargets.map(item => <option key={item.value} value={item.value}>{item.label}</option>)}</select></label>}

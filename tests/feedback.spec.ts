@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 test('private feedback supports portfolio, person and every project without public results', async ({ page }) => {
   let payload: Record<string, unknown> = {};
   await page.route('**/api/feedback', route => { payload = route.request().postDataJSON(); return route.fulfill({ status: 201, json: { id: 'test-id' } }); });
-  await page.goto('/');
+  await page.goto('/feedback');
   const section = page.locator('#feedback');
   await section.locator('summary').click();
   await expect(section.getByLabel('Feedback about').locator('option')).toHaveCount(9);

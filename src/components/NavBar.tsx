@@ -56,13 +56,13 @@ export default function NavBar() {
 
   const links = [
     ["Services", "/#capabilities"],
-    ["Work", "/#work"],
-    ["Web designs", "/#websites"],
-    ["About", "/#about"],
+    ["Work", "/#websites"],
+    ["Process", "/#process"],
+    ["Studio", "/#about"],
     ["Contact", "/#contact"],
   ];
   return (
-    <header className="site-header">
+    <header className={`site-header${location.pathname === "/" ? " site-header--immersive" : ""}`}>
       <div className="nav-wrap container">
         <Link
           className="wordmark"
@@ -87,8 +87,8 @@ export default function NavBar() {
               {label}
             </Link>
           ))}
-          <Link className="nav-contact" to="/#quote">
-            Get a quote <Arrow />
+          <Link className="nav-contact" to="/quote">
+            Start a project <Arrow />
           </Link>
         </nav>
         <button
@@ -127,7 +127,7 @@ export default function NavBar() {
           <p>
             NEW DELHI, INDIA
             <br />
-            WEB & MOBILE ENGINEERING
+            WEBSITES & DIGITAL PRODUCTS
           </p>
         </div>
       )}

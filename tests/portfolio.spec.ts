@@ -17,6 +17,7 @@ test("direct section links land on their target after fonts and motion initializ
       ["about", "about"],
       ["work", "work"],
       ["projects", "work"],
+      ["process", "process"],
     ]) {
       await page.goto(`/?section-check=${width}-${hash}#${hash}`);
       await page.evaluate(() => document.fonts.ready);
@@ -43,20 +44,20 @@ test("homepage is usable, free of runtime errors, and contains valid project lin
   page.on("pageerror", (error) => errors.push(error.message));
   await page.goto("/");
   await expect(page.getByRole("heading", { level: 1 })).toContainText(
-    "GREAT",
+    "YOUR BRAND.",
   );
   await expect(page).toHaveTitle("Vedant Digital Studio — Websites, Web & Mobile Apps");
   await expect(page.locator("canvas")).toHaveCount(0);
-  await expect(page.locator(".project-card")).toHaveCount(5);
-  for (const [slug, title] of cases)
+  await expect(page.locator(".project-card")).toHaveCount(2);
+  for (const [slug, title] of cases.filter(([slug]) => ["stockpulse", "vision-assistant"].includes(slug)))
     await expect(
       page.locator(`.project-link[href="/projects/${slug}"]`),
     ).toContainText(title);
   await page.getByRole("link", { name: "View work", exact: true }).click();
-  await expect(page).toHaveURL(/#work$/);
+  await expect(page).toHaveURL(/#websites$/);
   await page.waitForTimeout(1000);
   const workTop = await page
-    .locator("#work")
+    .locator("#websites")
     .evaluate((el) => el.getBoundingClientRect().top);
   expect(workTop).toBeGreaterThanOrEqual(0);
   expect(workTop).toBeLessThan(130);
@@ -96,16 +97,17 @@ for (const [slug, title] of cases) {
     await expect(page.getByRole("heading", { level: 1 })).not.toHaveText(title);
     await page.goBack();
     await expect(page.getByRole("heading", { level: 1 })).toHaveText(title);
-    await page.getByRole("link", { name: "ALL WORK" }).click();
-    await expect(page).toHaveURL("/#work");
+    await page.getByRole("main").getByRole("link", { name: "ALL WORK" }).click();
+    await expect(page).toHaveURL("/work");
+    await expect(page.locator(".project-card")).toHaveCount(5);
     await expect(
       page.getByRole("heading", { name: "Ideas made real." }),
     ).toBeVisible();
   });
 }
 
-test("browser Back restores portfolio scroll position", async ({ page }) => {
-  await page.goto("/");
+test("browser Back restores work archive scroll position", async ({ page }) => {
+  await page.goto("/work");
   await page.locator('.project-link[href="/projects/stockpulse-mobile"]').scrollIntoViewIfNeeded();
   await page.waitForTimeout(800);
   const before = await page.evaluate(() => scrollY);
@@ -117,7 +119,7 @@ test("browser Back restores portfolio scroll position", async ({ page }) => {
   );
   await page.goBack();
   await expect(page.getByRole("heading", { level: 1 })).toContainText(
-    "GREAT",
+    "Ideas made",
   );
   await page.waitForTimeout(350);
   expect(Math.abs((await page.evaluate(() => scrollY)) - before)).toBeLessThan(
@@ -130,7 +132,7 @@ for (const width of [360, 390, 768, 1024, 1440]) {
     page,
   }) => {
     await page.setViewportSize({ width, height: 900 });
-    for (const path of ["/", "/projects/stockpulse-mobile"]) {
+    for (const path of ["/", "/quote?service=mobile-app", "/work", "/feedback", "/projects/stockpulse-mobile"]) {
       await page.goto(path);
       await page.locator("main").waitFor();
       await page.evaluate(async () => {
@@ -188,7 +190,7 @@ test("mobile menu supports focus containment, Escape, links, and breakpoint chan
   await menu.click();
   await page
     .getByRole("navigation", { name: "Mobile navigation" })
-    .getByRole("link", { name: /About/ })
+    .getByRole("link", { name: /Studio/ })
     .click();
   await expect(page).toHaveURL("/#about");
   await expect(page.locator("#mobile-menu")).toHaveCount(0);
@@ -239,7 +241,7 @@ test("unknown paths and unknown projects have a useful recovery path", async ({
       "content",
       "noindex, follow",
     );
-    await page.getByRole("link", { name: "Back to the portfolio" }).click();
+    await page.getByRole("link", { name: "Back to the studio" }).click();
     await expect(page).toHaveURL("/");
   }
 });

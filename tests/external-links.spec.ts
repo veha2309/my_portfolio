@@ -38,7 +38,7 @@ test("external destinations require confirmation and cancellation restores focus
   await expect(dialog).not.toBeVisible();
   await popup.close();
   await page.locator('.project-link').first().click();
-  await expect(page).toHaveURL(/projects\/financeflow$/);
+  await expect(page).toHaveURL(/projects\/stockpulse$/);
   await expect(dialog).not.toBeVisible();
 });
 
